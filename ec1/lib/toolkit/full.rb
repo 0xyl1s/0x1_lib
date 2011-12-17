@@ -1,10 +1,10 @@
 # encoding: utf-8
 
-require 'ec1/users/toolkit/standard.rb'
-include Ec1::Users::Toolkit::Standard
+require 'ec1/lib/toolkit/standard.rb'
+include Ec1::Lib::Toolkit::Standard
 
-require 'ec1/users/toolkit/online.rb'
-include Ec1::Users::Toolkit::Online
+require 'ec1/lib/toolkit/online.rb'
+include Ec1::Lib::Toolkit::Online
 
 # Project infos >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>># {{{
 # Project: Epiculture

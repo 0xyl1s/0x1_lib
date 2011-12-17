@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Ec1 module Users module Toolkit module Standard
+module Ec1 module Lib module Toolkit module Standard
   TEMP='temp_debug'
   def ec1__time
     Time.new.strftime('%y-%m-%d_%h%m')
