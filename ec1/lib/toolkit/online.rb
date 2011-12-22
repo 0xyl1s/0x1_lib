@@ -13,6 +13,11 @@ def e__read_http_page(uri)
   open(uri).read
 end
 
+# WARNING : dependancy to system util 'mail'
+def e__email_send(to, from, subject, message)
+  system "echo \"#{message}\" | mail \"#{to}\" -s \"#{subject}\" -a FROM:\"#{from}\""
+end
+
 
 end end end end
 
