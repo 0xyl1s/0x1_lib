@@ -1,4 +1,9 @@
 # encoding: utf-8
+=begin
+enabling this lib with:
+require 'ec1/lib/toolkit/standard.rb'
+include Ec1::Lib::Toolkit::Standard
+=end
 
 module Ec1 module Lib module Toolkit module Standard
   TEMP='temp_debug'
@@ -17,6 +22,9 @@ module Ec1 module Lib module Toolkit module Standard
   def ec1__file_read(file)
     raise "Can't read #{file}" unless File.readable?(file)
     File.read(file)
+  end
+  def e__string_contain_only_numbers?(string)
+    return false unless string =~ /^[0-9]$/
   end
   def ec1__random_name(number_of_characters=13)
     letters_lower = ('a'..'z').to_a
