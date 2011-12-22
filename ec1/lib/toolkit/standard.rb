@@ -6,12 +6,12 @@ include Ec1::Lib::Toolkit::Standard
 =end
 
 module Ec1 module Lib module Toolkit module Standard
-  #deprecated method names
-  alias :ec1__time :e__datetime
 
   def e__datetime
-    Time.new.strftime('%y-%m-%d_%h%m')
+    Time.new.strftime("%F_%H:%M")
   end
+  alias :ec1__time :e__datetime
+
   def ec1__dir_ls(directory_raw, filter_raw = '*')
     raise "#{directory_raw} is not a directory" unless File.directory?(directory_raw)
     # making sure directory path end with /
