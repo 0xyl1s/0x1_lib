@@ -7,7 +7,7 @@ include Ec1::Lib::Toolkit::Standard
 
 module Ec1 module Lib module Toolkit module Standard
   #deprecated method names
-  alias :e__datetime :ec1__time
+  alias :ec1__time :e__datetime
 
   def e__datetime
     Time.new.strftime('%y-%m-%d_%h%m')
