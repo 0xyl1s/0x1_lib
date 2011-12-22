@@ -1,6 +1,19 @@
 # encoding: utf-8
+=begin
+enabling this lib with:
+require 'ec1/lib/toolkit/online.rb'
+include Ec1::Lib::Toolkit::Online
+=end
 
 module Ec1 module Lib module Toolkit module Online
+
+require 'open-uri'
+
+def e__read_http_page(uri)
+  open(uri).read
+end
+
+
 end end end end
 
 
