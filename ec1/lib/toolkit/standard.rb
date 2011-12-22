@@ -11,6 +11,9 @@ module Ec1 module Lib module Toolkit module Standard
     Time.new.strftime("%F_%H:%M")
   end
   alias :ec1__time :e__datetime
+  def e__datetime_sec
+    Time.new.strftime("%F_%H:%M:%S")
+  end
 
   def ec1__dir_ls(directory_raw, filter_raw = '*')
     raise "#{directory_raw} is not a directory" unless File.directory?(directory_raw)
