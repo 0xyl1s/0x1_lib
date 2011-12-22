@@ -24,7 +24,8 @@ module Ec1 module Lib module Toolkit module Standard
     File.read(file)
   end
   def e__string_contain_only_numbers?(string)
-    return false unless string =~ /^[0-9]$/
+    abort "checked string-number must be a string..." unless string.is_a?(String)
+    string =~ /^[\d]+$/ ? false : true
   end
   def ec1__random_name(number_of_characters=13)
     letters_lower = ('a'..'z').to_a
