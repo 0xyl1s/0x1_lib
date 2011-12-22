@@ -6,8 +6,10 @@ include Ec1::Lib::Toolkit::Standard
 =end
 
 module Ec1 module Lib module Toolkit module Standard
-  TEMP='temp_debug'
-  def ec1__time
+  #deprecated method names
+  alias :e__datetime :ec1__time
+
+  def e__datetime
     Time.new.strftime('%y-%m-%d_%h%m')
   end
   def ec1__dir_ls(directory_raw, filter_raw = '*')
