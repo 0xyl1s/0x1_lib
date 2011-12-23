@@ -6,8 +6,12 @@ include Ec1::Lib::Toolkit::Online
 =end
 
 module Ec1 module Lib module Toolkit module Online
-
 require 'open-uri'
+require 'net/http'
+
+def e__parse_uri(uri)
+  URI.parse(uri)
+end
 
 def e__read_http_page(uri)
   open(uri).read
