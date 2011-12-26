@@ -64,7 +64,6 @@ module Ec1 module Lib module Toolkit module Standard
   def e__file_readlines_minus_comments(file, comment_character = '#')
     e__file_readlines(file)
   end
-  alias :ec1__file_readlines_minus_comments :e__file_readlines_minus_comments
 
   def e__confirm(message='y(es) or no? ')
     print message
@@ -163,6 +162,10 @@ module Ec1 module Lib module Toolkit module Standard
   def e__dir_writable?(directory)
     abort if e__is_a_dir?(directory)
     File.writable?(directory) ? true : false
+  end
+
+  def e__mkdir_p(path)
+    FileUtils.mkdir_p(path)
   end
 
   def e__digest_create(content, algorithm = 'sha256')
