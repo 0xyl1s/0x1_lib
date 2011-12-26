@@ -36,7 +36,7 @@ require 'fileutils'
   end
 
   def e__file_read(file)
-    File.read(file) ? false : true
+    File.read(file)
   end
 
   def e__string_contain_only_numbers?(string)
