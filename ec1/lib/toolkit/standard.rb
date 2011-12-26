@@ -6,6 +6,7 @@ include Ec1::Lib::Toolkit::Standard
 =end
 
 module Ec1 module Lib module Toolkit module Standard
+require 'fileutils'
 
   def e__datetime
     Time.new.strftime("%F_%H:%M")
@@ -121,7 +122,6 @@ module Ec1 module Lib module Toolkit module Standard
   end
 
   def e__file_move(initial_filename, new_filename)
-    require 'fileutils'
     FileUtils.mv(initial_filename, new_filename)
   end
 
