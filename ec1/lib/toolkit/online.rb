@@ -13,8 +13,19 @@ def e__parse_uri(uri)
   URI.parse(uri)
 end
 
-def e__read_http_page(uri)
+def e__read_uri_content(uri)
   open(uri).read
+end
+
+def e__http_response_code(parsed_uri)
+  Net::HTTP.get_response(parsed_uri).code
+end
+
+def e__http_download(parsed_uri)
+  abort "Can't access #{parsed_uri}" unless e__http_response_code(parsed_uri) == '200'
+  Net::HTTP.start(parsed_uri.host) { |http|
+    http.get(parsed_uri.path).body
+  }
 end
 
 # WARNING : dependancy to system util 'mail'
