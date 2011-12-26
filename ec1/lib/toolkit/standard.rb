@@ -177,6 +177,12 @@ require 'fileutils'
     FileUtils.mkdir_p(path)
   end
 
+  def e__symlink_create(original_filename, symlink_target)
+    abort unless e__is_a_file?(original_filename)
+    abort if e__is_a_symlink?(symlink_target)
+    File.symlink(original_filename, symlink_target)
+  end
+
   def e__digest_create(content, algorithm = 'sha256')
     OpenSSL::Digest.hexdigest(algorithm, content)
   end
