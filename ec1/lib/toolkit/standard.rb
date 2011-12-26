@@ -105,15 +105,15 @@ require 'fileutils'
   end
 
   def e__file_write(content, filename)
-    File.open(filename, 'w') {|f| f.write(e_file_content) }
+    File.open(filename, 'w') {|f| f.write(content) }
   end
 
   def e__file_write_binary(content, filename)
-    File.open(filename, 'wb') {|f| f.write(e_file_content) }
+    File.open(filename, 'wb') {|f| f.write(content) }
   end
 
   def e__file_puts(content, filename)
-    File.open(filename, 'w') {|f| f.puts(e_file_content) }
+    File.open(filename, 'w') {|f| f.puts(content) }
   end
 
   def e__file_chmod(e_file_name, e_file_mode_raw=600)
