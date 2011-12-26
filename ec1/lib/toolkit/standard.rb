@@ -128,6 +128,12 @@ require 'fileutils'
     FileUtils.mv(initial_filename, new_filename)
   end
 
+  def e__dir_move(initial_dir, new_dir)
+    abort if e__is_a_dir?(new_dir)
+    abort unless e__is_a_dir?(initial_dir)
+    FileUtils.mv(initial_filename, new_filename)
+  end
+
   def e__dir_copy(sourcedirectory, destination_uri)
     abort "Can't access directory: #{sourcedirectory}" unless e__is_a_dir?(sourcedirectory)
     destinationdirectory = File.dirname(destination_uri)
