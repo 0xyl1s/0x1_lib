@@ -165,6 +165,10 @@ module Ec1 module Lib module Toolkit module Standard
     File.writable?(directory) ? true : false
   end
 
+  def e__digest_create(content, algorithm = 'sha256')
+    OpenSSL::Digest.hexdigest(algorithm, content)
+  end
+
   def ec1__
     puts "epiculture α --"
   end
