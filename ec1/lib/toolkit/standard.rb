@@ -131,7 +131,7 @@ require 'fileutils'
   def e__dir_move(initial_dir, new_dir)
     abort if e__is_a_dir?(new_dir)
     abort unless e__is_a_dir?(initial_dir)
-    FileUtils.mv(initial_filename, new_filename)
+    FileUtils.mv(initial_dir, new_dir)
   end
 
   def e__dir_copy(sourcedirectory, destination_uri)
