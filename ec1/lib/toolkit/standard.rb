@@ -30,11 +30,14 @@ require 'fileutils'
   end
   alias :ec1__dir_current :e__dir_current
 
-  def e__file_read(file)
+  def ec1__file_read(file)
     abort "Can't read #{file}" unless e__file_readable?(file)
     File.read(file)
   end
-  alias :ec1__file_read :e__file_read
+
+  def e__file_read(file)
+    File.read(file) ? false : true
+  end
 
   def e__string_contain_only_numbers?(string)
     abort "checked string-number must be a string..." unless string.is_a?(String)
