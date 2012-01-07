@@ -95,7 +95,7 @@ require 'fileutils'
   end
   alias :ec1__file_save_nl :e__file_save_nl
 
-  def e__tempfilename_generate(e_filename)
+  def e__tempfilename_generate(e_file_name)
     "#{e_file_name}.ec1temp.#{e__random_name}"
   end
 
