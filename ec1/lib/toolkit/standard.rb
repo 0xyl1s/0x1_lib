@@ -99,10 +99,6 @@ require 'fileutils'
 
   def e__file_save(e_file_content, e_file_name, e_file_mode='600')
     e_tempfile = e__tempfilename_generate(e_file_name)
-    puts "e_file_content = #{e_file_content}"
-    puts "e_file_name = #{e_file_name}"
-    puts "e_file_mode = #{e_file_mode}"
-    puts "e_tempfile = #{e_tempfile}"
     abort "file #{e_file_name} exists already" if e__is_a_file?(e_file_name)
     abort "can't write file #{e_tempfile}" unless e__file_write(e_file_content, e_tempfile)
     abort "can't set file #{e_tempfile} mode to #{e_file_mode}" unless e__file_chmod(e_tempfile, e_file_mode)
