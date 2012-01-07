@@ -81,19 +81,22 @@ require 'fileutils'
   end
   alias :ec1__confirm :e__confirm
 
-  def e__file_save_unsecured(e_file_content, e_file_name, e_file_mode='600')
+  def e__file_save_unsecured(e_file_content, e_file_name, e_file_mode_raw='600')
+    e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
     File.open(e_file_name, 'w') {|f| f.write(e_file_content) }
     File.chmod(e_file_mode.to_i(8), e_file_name)
   end
   alias :ec1__file_save_unsecured :e__file_save_unsecured
 
-  def e__file_save_nl(e_file_content_raw, e_file_name, e_file_mode_raw=600)
+  def e__file_save_nl(e_file_content_raw, e_file_name, e_file_mode_raw='600')
+    e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
     e_file_content = "#{e_file_content_raw}\n"
-    e__file_save(e_file_content, e_file_name, e_file_mode_raw)
+    e__file_save(e_file_content, e_file_name, e_file_mode)
   end
   alias :ec1__file_save_nl :e__file_save_nl
 
-  def e__file_save(e_file_content, e_file_name, e_file_mode_raw=600)
+  def e__file_save(e_file_content, e_file_name, e_file_mode_raw='600')
+    e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
     e_tempfile = "#{e_file_name}.ec1temp.#{e__random_name}"
     abort "file #{e_file_name} exists already" if e__is_a_file?(e_file_name)
     abort "can't write file #{e_tempfile}" unless e__file_write(e_tempfile, e_file_content)
@@ -120,7 +123,7 @@ require 'fileutils'
     File.open(filename, 'w') {|f| f.puts(content) }
   end
 
-  def e__file_chmod(e_file_name, e_file_mode_raw=600)
+  def e__file_chmod(e_file_name, e_file_mode_raw='600')
     e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
     File.chmod(e_file_mode, e_tempfile)
   end
