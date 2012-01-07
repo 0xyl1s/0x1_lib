@@ -129,7 +129,7 @@ require 'fileutils'
 
   def e__file_chmod(e_file_name, e_file_mode_raw='600')
     e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
-    File.chmod(e_file_mode, e_tempfile)
+    File.chmod(e_file_mode, e_file_name)
   end
 
   def e__file_move(initial_filename, new_filename)
