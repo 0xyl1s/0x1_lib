@@ -113,7 +113,7 @@ require 'fileutils'
     #
     #DEBUGGING
     abort "file #{e_file_name} exists already" if e__is_a_file?(e_file_name)
-    abort "can't write file #{e_tempfile}" unless e__file_write(e_tempfile, e_file_content)
+    abort "can't write file #{e_tempfile}" unless e__file_write(e_file_content, e_tempfile)
     abort "can't set file #{e_tempfile} mode to #{e_file_mode}" unless e__file_chmod(e_tempfile, e_file_mode)
     abort "can't overwrite #{e_tempfile} to #{e_file_name}" unless e__file_move(e_tempfile, e_file_name)
   end
@@ -121,7 +121,7 @@ require 'fileutils'
 
   def e__file_overwrite(e_file_content, e_file_name)
     e_tempfile = e__tempfilename_generate(e_file_name)
-    abort "can't write file #{e_tempfile}" unless e__file_write(e_tempfile, e_file_content)
+    abort "can't write file #{e_tempfile}" unless e__file_write(e_file_content, e_tempfile)
     abort "can't overwrite #{e_tempfile} to #{e_file_name}" unless e__file_move(e_tempfile, e_file_name)
   end
 
