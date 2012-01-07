@@ -81,15 +81,13 @@ require 'fileutils'
   end
   alias :ec1__confirm :e__confirm
 
-  def e__file_save_unsecured(e_file_content, e_file_name, e_file_mode_raw='600')
-    e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
+  def e__file_save_unsecured(e_file_content, e_file_name, e_file_mode='600')
     File.open(e_file_name, 'w') {|f| f.write(e_file_content) }
     File.chmod(e_file_mode, e_file_name)
   end
   alias :ec1__file_save_unsecured :e__file_save_unsecured
 
-  def e__file_save_nl(e_file_content_raw, e_file_name, e_file_mode_raw='600')
-    e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
+  def e__file_save_nl(e_file_content_raw, e_file_name, e_file_mode='600')
     e_file_content = "#{e_file_content_raw}\n"
     e__file_save(e_file_content, e_file_name, e_file_mode)
   end
@@ -99,8 +97,7 @@ require 'fileutils'
     "#{e_file_name}.ec1temp.#{e__random_name}"
   end
 
-  def e__file_save(e_file_content, e_file_name, e_file_mode_raw='600')
-    e_file_mode = "0#{e_file_mode_raw.to_s}".to_i(8)
+  def e__file_save(e_file_content, e_file_name, e_file_mode='600')
     e_tempfile = e__tempfilename_generate(e_file_name)
     puts "e_file_content = #{e_file_content}"
     puts "e_file_name = #{e_file_name}"
