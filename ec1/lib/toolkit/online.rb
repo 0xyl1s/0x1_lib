@@ -53,7 +53,7 @@ def e__http_download_and_save(uri, save_basepath=nil)
   else
     abort "ERROR: can't access save_basepath #{save_basepath}" unless e__is_a_dir?(save_basepath)
   end
-  save_path = "#{save_basepath}#{filename_from_parsed_uri}"
+  save_path = "#{save_basepath}#/{filename_from_parsed_uri}"
   puts "e__http_download_and_save save_path = #{save_path}" if DEBUG
   e__file_save(downloaded_content, save_path)
 end
