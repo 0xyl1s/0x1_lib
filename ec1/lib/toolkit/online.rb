@@ -27,7 +27,8 @@ def e__http_response_code(parsed_uri)
   Net::HTTP.get_response(parsed_uri).code
 end
 
-def e__http_download(parsed_uri)
+def e__http_download(parsed_uri_raw)
+  parsed_uri = parsed_uri_raw.read
   puts "e__http_download parsed_uri = #{parsed_uri}" if DEBUG
   abort "Can't access #{parsed_uri}" unless e__http_response_code(parsed_uri) == '200'
   Net::HTTP.start(parsed_uri.host) { |http|
