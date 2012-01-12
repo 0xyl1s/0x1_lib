@@ -30,7 +30,7 @@ require 'fileutils'
     File.directory?(directory) ? true : false
   end
 
-  def dir_is_empty?(directory)
+  def e__dir_is_empty?(directory)
     abort "ERROR: #{directory} is not a directory" unless e__is_a_dir?(directory)
     (Dir.entries(directory) - %w{ . ..}).size == 0 ? true : false
   end
