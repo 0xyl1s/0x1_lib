@@ -26,6 +26,15 @@ require 'fileutils'
     Time.new.strftime("%F_%H%M%S")
   end
 
+  def e__is_a_dir?(directory)
+    File.directory?(directory) ? true : false
+  end
+
+  def dir_is_empty?(directory)
+    abort "ERROR: #{directory} is not a directory" unless e__is_a_dir?(directory)
+    (Dir.entries(directory) - %w{ . ..}).size == 0 ? true : false
+  end
+
   def e__dir_ls(directory_raw, filter_raw = '*')
     abort "#{directory_raw} is not a directory" unless e__is_a_dir?(directory_raw)
     # making sure directory path end with /
@@ -163,10 +172,6 @@ require 'fileutils'
 
   def e__is_a_symlink?(file)
     File.symlink?(file) ? true : false
-  end
-
-  def e__is_a_dir?(directory)
-    File.directory?(directory) ? true : false
   end
 
   def e__file_readable?(file)
