@@ -13,7 +13,7 @@ require 'fileutils'
   end
 
   def e__array_value_exist?(array, value)
-    abort unless e__is_an_array(array)
+    abort unless e__is_an_array?(array)
     array.include?(value) ? true : false
   end
 
