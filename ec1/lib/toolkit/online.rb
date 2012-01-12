@@ -27,7 +27,7 @@ def e__http_response_code(parsed_uri)
   Net::HTTP.get_response(parsed_uri).code
 end
 
-def e__http_download(parsed_uri_raw)
+def e__http_download(parsed_uri)
   parsed_uri.read
 end
 
