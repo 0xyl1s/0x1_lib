@@ -13,6 +13,10 @@ def e__parse_uri(uri)
   URI.parse(uri)
 end
 
+def e__filename_from_parsed_uri(parsed_uri)
+  URI.parse(uri).path.split('/').last
+end
+
 def e__read_uri_content(uri)
   open(uri).read
 end
@@ -26,6 +30,19 @@ def e__http_download(parsed_uri)
   Net::HTTP.start(parsed_uri.host) { |http|
     http.get(parsed_uri.path).body
   }
+end
+
+def e__http_download_and_save(uri, save_basepath=nil)
+  parsed_uri = e__parse_uri(uri)
+  downloaded_content = e__http_download(parsed_uri)
+  filename_from_parsed_uri = e__filename_from_parsed_uri(parsed_uri)
+  if save_basepath.nil?
+    save_basepath = e__dir_current 
+  else
+    abort "ERROR: can't access save_basepath #{save_basepath}" unless e__is_a_dir?(save_path)
+  end
+  save_path = "#{filename_from_parsed_uri}#{save_basepath}"
+  e__file_save(downloaded_content, save_path)
 end
 
 # WARNING : dependancy to system util 'mail'
