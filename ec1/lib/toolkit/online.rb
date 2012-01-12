@@ -16,7 +16,7 @@ def e__parse_uri(uri)
 end
 
 def e__filename_from_parsed_uri(parsed_uri)
-  URI.parse(uri).path.split('/').last
+  URI.parse(parsed_uri).path.split('/').last
 end
 
 def e__read_uri_content(uri)
