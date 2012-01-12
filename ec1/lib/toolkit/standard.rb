@@ -8,6 +8,15 @@ include Ec1::Lib::Toolkit::Standard
 module Ec1 module Lib module Toolkit module Standard
 require 'fileutils'
 
+  def e__is_an_array?(array)
+    array.kind_of?(Array) ? true : false
+  end
+
+  def e__array_value_exist?(array, value)
+    abort unless e__is_an_array(array)
+    array.include?(value) ? true : false
+  end
+
   def e__datetime
     Time.new.strftime("%F_%H%M")
   end
