@@ -9,7 +9,7 @@ module Ec1 module Lib module Toolkit module Online
 require 'open-uri'
 require 'net/http'
 
-DEBUG = true
+DEBUG = false
 
 def e__parse_uri(uri)
   URI.parse(uri)

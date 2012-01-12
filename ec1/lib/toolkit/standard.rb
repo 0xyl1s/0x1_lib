@@ -8,60 +8,6 @@ include Ec1::Lib::Toolkit::Standard
 module Ec1 module Lib module Toolkit module Standard
 require 'fileutils'
 
-  def e__is_an_array?(array)
-    array.kind_of?(Array) ? true : false
-  end
-
-  def e__array_value_exist?(array, value)
-    abort unless e__is_an_array?(array)
-    array.include?(value) ? true : false
-  end
-
-  def e__datetime
-    Time.new.strftime("%F_%H%M")
-  end
-  alias :ec1__time :e__datetime
-
-  def e__datetime_sec
-    Time.new.strftime("%F_%H%M%S")
-  end
-
-  def e__is_a_dir?(directory)
-    File.directory?(directory) ? true : false
-  end
-
-  def e__dir_is_empty?(directory)
-    abort "ERROR: #{directory} is not a directory" unless e__is_a_dir?(directory)
-    (Dir.entries(directory) - %w{ . ..}).size == 0 ? true : false
-  end
-
-  def e__dir_ls(directory_raw, filter_raw = '*')
-    abort "#{directory_raw} is not a directory" unless e__is_a_dir?(directory_raw)
-    # making sure directory path end with /
-    directory = directory_raw << ('/') unless directory_raw.match(/\/\Z/)
-    Dir["#{directory}#{filter_raw}"]
-  end
-  alias :ec1__dir_ls :e__dir_ls
-
-  def e__dir_current
-    puts Dir.pwd
-  end
-  alias :ec1__dir_current :e__dir_current
-
-  def ec1__file_read(file)
-    abort "Can't read #{file}" unless e__file_readable?(file)
-    File.read(file)
-  end
-
-  def e__file_read(file)
-    File.read(file)
-  end
-
-  def e__string_contain_only_numbers?(string)
-    abort "checked string-number must be a string..." unless string.is_a?(String)
-    string =~ /^[\d]+$/ ? false : true
-  end
-
   def e__random_name(number_of_characters=13)
     letters_lower = ('a'..'z').to_a
     letters_upper = ('A'..'Z').to_a
@@ -74,6 +20,38 @@ require 'fileutils'
     e_random_name
   end
   alias :ec1__random_name :e__random_name
+
+  def e__string_contain_only_numbers?(string)
+    abort "checked string-number must be a string..." unless string.is_a?(String)
+    string =~ /^[\d]+$/ ? false : true
+  end
+
+  def e__datetime
+    Time.new.strftime("%F_%H%M")
+  end
+  alias :ec1__time :e__datetime
+
+  def e__datetime_sec
+    Time.new.strftime("%F_%H%M%S")
+  end
+
+  def e__is_an_array?(array)
+    array.kind_of?(Array) ? true : false
+  end
+
+  def e__array_value_exist?(array, value)
+    abort unless e__is_an_array?(array)
+    array.include?(value) ? true : false
+  end
+
+  def ec1__file_read(file)
+    abort "Can't read #{file}" unless e__file_readable?(file)
+    File.read(file)
+  end
+
+  def e__file_read(file)
+    File.read(file)
+  end
 
   #gets a file argument [string], and returns [array] of lines [string]
   def e__file_readlines(file)
@@ -151,6 +129,40 @@ require 'fileutils'
     FileUtils.mv(initial_filename, new_filename)
   end
 
+  def e__is_a_file?(file)
+    File.exists?(file) ? true : false
+  end
+
+  def e__file_readable?(file)
+    File.readable?(file) ? true : false
+  end
+
+  def e__file_writable?(file)
+    File.writable?(file) ? true : false
+  end
+
+  def e__is_a_dir?(directory)
+    File.directory?(directory) ? true : false
+  end
+
+  def e__dir_is_empty?(directory)
+    abort "ERROR: #{directory} is not a directory" unless e__is_a_dir?(directory)
+    (Dir.entries(directory) - %w{ . ..}).size == 0 ? true : false
+  end
+
+  def e__dir_ls(directory_raw, filter_raw = '*')
+    abort "#{directory_raw} is not a directory" unless e__is_a_dir?(directory_raw)
+    # making sure directory path end with /
+    directory = directory_raw << ('/') unless directory_raw.match(/\/\Z/)
+    Dir["#{directory}#{filter_raw}"]
+  end
+  alias :ec1__dir_ls :e__dir_ls
+
+  def e__dir_current
+    puts Dir.pwd
+  end
+  alias :ec1__dir_current :e__dir_current
+
   def e__dir_move(initial_dir, new_dir)
     abort if e__is_a_dir?(new_dir)
     abort unless e__is_a_dir?(initial_dir)
@@ -166,22 +178,6 @@ require 'fileutils'
   end
   alias :ec1__dir_copy :e__dir_copy
 
-  def e__is_a_file?(file)
-    File.exists?(file) ? true : false
-  end
-
-  def e__is_a_symlink?(file)
-    File.symlink?(file) ? true : false
-  end
-
-  def e__file_readable?(file)
-    File.readable?(file) ? true : false
-  end
-
-  def e__file_writable?(file)
-    File.writable?(file) ? true : false
-  end
-
   def e__dir_readable?(directory)
     abort if e__is_a_dir?(directory)
     File.readable?(directory) ? true : false
@@ -194,6 +190,10 @@ require 'fileutils'
 
   def e__mkdir_p(path)
     FileUtils.mkdir_p(path)
+  end
+
+  def e__is_a_symlink?(file)
+    File.symlink?(file) ? true : false
   end
 
   def e__symlink_create(original_filename, symlink_target)
