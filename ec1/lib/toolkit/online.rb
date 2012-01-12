@@ -28,13 +28,17 @@ def e__http_response_code(parsed_uri)
 end
 
 def e__http_download(parsed_uri_raw)
-  parsed_uri = parsed_uri_raw.read
-  puts "e__http_download parsed_uri = #{parsed_uri}" if DEBUG
-  abort "Can't access #{parsed_uri}" unless e__http_response_code(parsed_uri) == '200'
-  Net::HTTP.start(parsed_uri.host) { |http|
-    http.get(parsed_uri.path).body
-  }
+  parsed_uri.read
 end
+
+#def e__http_download(parsed_uri_raw)
+  #parsed_uri = parsed_uri_raw.read
+  #puts "e__http_download parsed_uri = #{parsed_uri}" if DEBUG
+  #abort "Can't access #{parsed_uri}" unless e__http_response_code(parsed_uri) == '200'
+  #Net::HTTP.start(parsed_uri.host) { |http|
+    #http.get(parsed_uri.path).body
+  #}
+#end
 
 def e__http_download_and_save(uri, save_basepath=nil)
   puts "e__http_download_and_save uri = #{uri}" if DEBUG
