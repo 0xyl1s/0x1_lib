@@ -11,6 +11,13 @@ require 'net/http'
 
 DEBUG = false
 
+# TODO: implementing a ruby solution instead of external command
+def e__service_online?(host, port, delay='8')
+  check_command = "netcat -w #{delay} -z #{host} #{port}"
+  system check_command
+  $? == 0 ? true : false
+end
+
 def e__parse_uri(uri)
   URI.parse(uri)
 end
