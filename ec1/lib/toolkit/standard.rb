@@ -32,7 +32,7 @@ require 'fileutils'
   alias :ec1__time :e__datetime
 
   def e__datetime_sec
-    Time.new.strftime("%F_%H%M%S")
+    Time.new.strftime("%F_%H%M.%S")
   end
 
   def e__is_an_array?(array)
