@@ -188,6 +188,10 @@ require 'fileutils'
     File.writable?(directory) ? true : false
   end
 
+  def e__mkdir(path)
+    FileUtils.mkdir(path)
+  end
+
   def e__mkdir_p(path)
     FileUtils.mkdir_p(path)
   end
