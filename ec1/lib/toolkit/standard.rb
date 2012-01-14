@@ -8,6 +8,10 @@ include Ec1::Lib::Toolkit::Standard
 module Ec1 module Lib module Toolkit module Standard
 require 'fileutils'
 
+  def e__user_homedir()
+    File.expand_path("~")
+  end
+
   def e__random_name(number_of_characters=13)
     letters_lower = ('a'..'z').to_a
     letters_upper = ('A'..'Z').to_a
