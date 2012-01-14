@@ -57,6 +57,10 @@ require 'fileutils'
     File.read(file)
   end
 
+  def e__file_read_chomp(file)
+    e_file_read(file).chomp
+  end
+
   #gets a file argument [string], and returns [array] of lines [string]
   def e__file_readlines(file)
     abort "Can't read #{file}" unless e__file_readable?(file)
