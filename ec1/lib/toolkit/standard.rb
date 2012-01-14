@@ -58,7 +58,7 @@ require 'fileutils'
   end
 
   def e__file_read_chomp(file)
-    e_file_read(file).chomp
+    e__file_read(file).chomp
   end
 
   #gets a file argument [string], and returns [array] of lines [string]
