@@ -12,6 +12,10 @@ require 'fileutils'
     File.expand_path("~")
   end
 
+  def e__content_replace(s_content, s_search_regex, s_replace_value)
+    s_content.sub(/#{s_search_regex}/, s_replace_value)
+  end
+
   def e__random_name(number_of_characters=13)
     letters_lower = ('a'..'z').to_a
     letters_upper = ('A'..'Z').to_a
