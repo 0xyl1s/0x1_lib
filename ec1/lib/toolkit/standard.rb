@@ -37,8 +37,16 @@ require 'fileutils'
   alias :ec1__random_name :e__random_string
   alias :e__random_name :e__random_string
 
+  def e__is_a_string?(s_string)
+    s_string.is_a?(String) ? true : false
+  end
+
+  def e__is_an_integer?(i_integer)
+    i_integer.is_a?(Integer) ? true : false
+  end
+
   def e__string_contain_only_numbers?(s_string)
-    abort "checked string-number must be a string..." unless s_string.is_a?(String)
+    abort "checked string-number must be a string..." unless e__is_a_string?(s_string)
     s_string =~ /^[\d]+$/ ? false : true
   end
 
@@ -51,8 +59,8 @@ require 'fileutils'
     Time.new.strftime("%F_%H%M.%S")
   end
 
-  def e__is_an_array?(array)
-    array.kind_of?(Array) ? true : false
+  def e__is_an_array?(a_array)
+    a_array.is_a?(Array) ? true : false
   end
 
   def e__array_value_exist?(array, value)
