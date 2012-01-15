@@ -19,6 +19,7 @@ require 'fileutils'
   end
 
   def e__random_string(i_number_of_characters=13, b_lowercase=false)
+    abort "e__random_string ERROR: i_number_of_characters must be an integer" unless e__is_an_integer?(i_number_of_characters)
     letters_lower = ('a'..'z').to_a
     letters_upper = ('A'..'Z').to_a
     numbers = (0..9).to_a.collect {|i| i.to_s}
