@@ -42,6 +42,11 @@ require 'fileutils'
     s_string.is_a?(String) ? true : false
   end
 
+  def e__is_a_blank_string?(s_string)
+    abort "ERROR: provided s_string must be a string (is a #{s_string.class})" unless e__is_a_string?(s_string)
+    s_string.empty? ? true : false
+  end
+
   def e__is_an_integer?(i_integer)
     i_integer.is_a?(Integer) ? true : false
   end
