@@ -37,9 +37,9 @@ require 'fileutils'
   alias :ec1__random_name :e__random_string
   alias :e__random_name :e__random_string
 
-  def e__string_contain_only_numbers?(string)
-    abort "checked string-number must be a string..." unless string.is_a?(String)
-    string =~ /^[\d]+$/ ? false : true
+  def e__string_contain_only_numbers?(s_string)
+    abort "checked string-number must be a string..." unless s_string.is_a?(String)
+    s_string =~ /^[\d]+$/ ? false : true
   end
 
   def e__datetime
