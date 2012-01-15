@@ -18,18 +18,24 @@ require 'fileutils'
     s_content.sub(/#{s_search_regex}/, s_replace_value)
   end
 
-  def e__random_name(number_of_characters=13)
+  def e__random_string(i_number_of_characters=13, b_lowercase=false)
     letters_lower = ('a'..'z').to_a
     letters_upper = ('A'..'Z').to_a
     numbers = (0..9).to_a.collect {|i| i.to_s}
-    alphanumeric_upper_lower = letters_lower + letters_upper + numbers
+    if b_lowercase
+      characters_pool = numbers + letters_lower
+    else
+      characters_pool = numbers + letters_lower + letters_upper
+    end
     e_random_name = ''
-    number_of_characters.times do
-      e_random_name << alphanumeric_upper_lower[rand(alphanumeric_upper_lower.size)]
+    i_number_of_characters.times do
+      e_random_name << characters_pool[rand(characters_pool.size)]
     end
     e_random_name
   end
-  alias :ec1__random_name :e__random_name
+  # TODO: replacing on ec1 codebase all instances of ec1__random_name and e__random_name by e__random_string
+  alias :ec1__random_name :e__random_string
+  alias :e__random_name :e__random_string
 
   def e__string_contain_only_numbers?(string)
     abort "checked string-number must be a string..." unless string.is_a?(String)
