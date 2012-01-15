@@ -47,7 +47,7 @@ require 'fileutils'
 
   def e__string_contain_only_numbers?(s_string)
     abort "checked string-number must be a string..." unless e__is_a_string?(s_string)
-    s_string =~ /^[\d]+$/ ? false : true
+    s_string =~ /^[\d]+$/ ? true : false
   end
 
   def e__datetime
