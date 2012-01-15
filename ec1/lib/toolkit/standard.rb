@@ -1,4 +1,6 @@
 # encoding: utf-8
+# tested with ruby 1.9.3
+# TODO: ec1_lib should not be required based on an assumed (and uncontrollable) user's RUBYLIB path
 =begin
 enabling this lib with:
 require 'ec1/lib/toolkit/standard.rb'
@@ -157,9 +159,13 @@ require 'fileutils'
     File.directory?(directory) ? true : false
   end
 
-  def e__dir_is_empty?(directory)
-    abort "ERROR: #{directory} is not a directory" unless e__is_a_dir?(directory)
-    (Dir.entries(directory) - %w{ . ..}).size == 0 ? true : false
+  def e__dir_list_non_recursive(s_directory)
+    abort "ERROR: #{s_directory} is not a directory" unless e__is_a_dir?(s_directory)
+    Dir.entries(s_directory) - %w{ . ..}
+  end
+
+  def e__dir_is_empty?(s_directory)
+    e__dir_list_non_recursive(s_directory).size == 0 ? true : false
   end
 
   def e__dir_ls(directory_raw, filter_raw = '*')
@@ -250,31 +256,12 @@ require 'fileutils'
 end end end end
 
 
-# Project infos >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>># {{{
-# Project: Epiculture
-# Author: Pierre-Mael Cretinon
-# Email: projects2011@3eclipses.com
-# License: GNU GPLv3
-#
-# Notes:
-#
-# License details:
-# <copyright/copyleft>
-# Copyright 2010-2011 (c) Pierre-Mael CRETINON <copyleft@pierremael.net>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
-# </copyright/copyleft>
-# Project infos <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<# }}}
-#vim: foldmethod=marker
+# ____________________________________________________________________
+# >>>>>  projet epiculture/ec1   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#{{{
+# Sources, Infos & Contact : http://www.epiculture.org
+# Author: Pierre-Maël Crétinon
+# License: GNU GPLv3 ( www.epiculture.org/ec1/LICENSE )
+# Copyright: 2010-2012 Pierre-Maël Crétinon
+# Sponsor: studio Helianova - http://studio.helianova.com
+# ――――――――――――――――――――――――――――――――――――――#}}}
+# vim: 
