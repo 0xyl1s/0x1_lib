@@ -1,11 +1,11 @@
 # encoding: utf-8
 =begin
 enabling this lib with:
-require 'ec1/lib/toolkit/online.rb'
-include Ec1::Lib::Toolkit::Online
+require '0x1/lib/toolkit/online.rb'
+include X::Lib::Toolkit::Online
 =end
 
-module Ec1 module Lib module Toolkit module Online
+module X module Lib module Toolkit module Online
 require 'open-uri'
 require 'net/http'
 

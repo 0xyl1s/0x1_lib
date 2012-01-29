@@ -1,6 +1,6 @@
 
 
-function e__datetime_sec(){
+function x__datetime_sec(){
 date +%Y-%m-%d_%H%M%S
 }
 

@@ -1,13 +1,12 @@
 # encoding: utf-8
 # tested with ruby 1.9.3
-# TODO: ec1_lib should not be required based on an assumed (and uncontrollable) user's RUBYLIB path
 =begin
 enabling this lib with:
-require 'ec1/lib/toolkit/standard.rb'
-include Ec1::Lib::Toolkit::Standard
+require '0x1/lib/toolkit/standard.rb'
+include X::Lib::Toolkit::Standard
 =end
 
-module Ec1 module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Standard
 require 'fileutils'
 
   def e__user_homedir()
@@ -124,7 +123,7 @@ require 'fileutils'
   alias :ec1__file_save_nl :e__file_save_nl
 
   def e__tempfilename_generate(e_file_name)
-    "#{e_file_name}.ec1temp.#{e__random_name}"
+    "#{e_file_name}.0x1temp.#{e__random_name}"
   end
 
   def e__file_save(e_file_content, e_file_name, e_file_mode='600')
@@ -248,8 +247,8 @@ require 'fileutils'
     OpenSSL::Digest.hexdigest(algorithm, content)
   end
 
-  def ec1__
-    puts "epiculture α --"
+  def 0x1__
+    puts "0xyl1s α --"
   end
 
 
