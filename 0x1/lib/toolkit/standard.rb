@@ -247,7 +247,7 @@ require 'fileutils'
     OpenSSL::Digest.hexdigest(algorithm, content)
   end
 
-  def 0x1__
+  def x__
     puts "0xyl1s α --"
   end
 
