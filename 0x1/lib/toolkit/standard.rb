@@ -7,7 +7,7 @@ include X::Lib::Toolkit::Standard
 =end
 
 module X module Lib module Toolkit module Standard
-require 'fileutils'
+  require 'fileutils'
 
   def x__user_homedir()
     File.expand_path("~")
@@ -247,14 +247,58 @@ require 'fileutils'
     OpenSSL::Digest.hexdigest(algorithm, content)
   end
 
+  # possible l_base values: :decimal, :hex, :binary
+  def x__integer_2_string(i_integer, l_base, verbose=false)
+    unless x__is_an_integer?(i_integer)
+      if verbose
+        abort "E: you must supply an integer (#{i_integer})"
+      else
+        abort
+      end
+    end
+    case l_base
+    when :binary
+      i_integer.to_s(2)
+    when :hex
+      i_integer.to_s(16)
+    when :decimal
+      i_integer.to_s(10)
+    end
+  end
+
+  # l_position can be :left :center :right
+  def x__format_pad(s_string, l_position, i_length, s_pad, verbose=false)
+    unless x__is_a_string?(s_string)
+      if verbose
+        abort "E: you must supply an integer (#{i_integer})"
+      else
+        abort
+      end
+    end
+    case l_position
+    when :left
+      s_string.ljust(i_length, s_pad)
+    when :center
+      s_string.center(i_length, s_pad)
+    when :right
+      s_string.rjust(i_length, s_pad)
+    else
+      if verbose
+        abort "E: l_position (#{l_position}) must be :left :center or :right"
+      else
+        abort
+      end
+    end
+  end
+
   def x__
     puts "0xyl1s α --"
   end
 
 
-#_______________________________________________________________________
-################## ☣ DEPRECATED ☣ ######################################
-#☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣
+  #_______________________________________________________________________
+  ################## ☣ DEPRECATED ☣ ######################################
+  #☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣☣
 
   def ec1__filename(fullpath)
     Pathname.new(fullpath).path
