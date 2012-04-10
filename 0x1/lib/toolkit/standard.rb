@@ -247,7 +247,7 @@ module X module Lib module Toolkit module Standard
     OpenSSL::Digest.hexdigest(algorithm, content)
   end
 
-  # possible l_base values: :decimal, :hex, :binary
+  # possible l_base values: :dec, :hex, :bin
   def x__integer_2_string(i_integer, l_base, verbose=false)
     unless x__is_an_integer?(i_integer)
       if verbose
@@ -257,11 +257,11 @@ module X module Lib module Toolkit module Standard
       end
     end
     case l_base
-    when :binary
+    when :bin
       i_integer.to_s(2)
     when :hex
       i_integer.to_s(16)
-    when :decimal
+    when :dec
       i_integer.to_s(10)
     end
   end
