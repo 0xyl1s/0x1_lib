@@ -237,10 +237,10 @@ module X module Lib module Toolkit module Standard
     File.symlink?(file) ? true : false
   end
 
-  def x__symlink_create(original_filename, symlink_target)
-    abort unless x__is_a_file?(original_filename)
-    abort if x__is_a_symlink?(symlink_target)
-    File.symlink(original_filename, symlink_target)
+  def x__symlink_create(s_source_filename, s_target_symlink)
+    abort unless x__is_a_file?(s_source_filename)
+    abort if x__is_a_symlink?(s_target_symlink)
+    File.symlink(s_source_filename, s_target_symlink)
   end
 
   def x__digest_create(content, algorithm = 'sha256')
