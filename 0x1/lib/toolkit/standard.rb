@@ -6,8 +6,10 @@ require '0x1/lib/toolkit/standard.rb'
 include X::Lib::Toolkit::Standard
 =end
 
+# TODO: compartimentilize themes (file_operations, network_tools, ...)
 module X module Lib module Toolkit module Standard
   require 'fileutils'
+  require 'json'
 
   def x__user_homedir()
     File.expand_path("~")
