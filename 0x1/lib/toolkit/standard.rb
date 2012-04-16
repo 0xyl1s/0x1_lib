@@ -6,7 +6,6 @@ require '0x1/lib/toolkit/standard.rb'
 include X::Lib::Toolkit::Standard
 =end
 
-# TODO: all lines 79 characters max
 # TODO: compartimentilize themes (file_operations, network_tools, ...)
 module X module Lib module Toolkit module Standard
   require 'fileutils'
@@ -25,12 +24,16 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__is_a_blank_string?(s_string)
-    abort "ERROR: provided s_string must be a string (is a #{s_string.class})" unless x__is_a_string?(s_string)
+    unless x__is_a_string?(s_string)
+      abort "ERROR: provided s_string must be a string (#{s_string.class})"
+    end
     s_string.empty? ? true : false
   end
 
   def x__string_contain_only_numbers?(s_string)
-    abort "checked string-number must be a string..." unless x__is_a_string?(s_string)
+    unless x__is_a_string?(s_string)
+      abort "checked string-number must be a string..."
+    end
     s_string =~ /^[\d]+$/ ? true : false
   end
 
@@ -113,14 +116,15 @@ module X module Lib module Toolkit module Standard
     x__file_read(file).chomp
   end
 
-  #gets a file argument [string], and returns [array] of lines [string]
+  # gets a file argument [string], and returns [array] of lines [string]
   def x__file_readlines(file)
     abort "Can't read #{file}" unless x__file_readable?(file)
     File.readlines(file)
   end
   alias :ec1__file_readlines :x__file_readlines
 
-  #gets a file argument [string], and returns [array] of lines [string], excluding comments
+  # gets a file argument [string], and returns [array] of lines [string],
+  # excluding comments
   def x__file_readlines_minus_comments(file, comment_character = '#')
     x__file_readlines(file)
   end
@@ -144,16 +148,26 @@ module X module Lib module Toolkit module Standard
   def x__file_save(e_file_content, e_file_name, e_file_mode='600')
     e_tempfile = x__tempfilename_generate(e_file_name)
     abort "file #{e_file_name} exists already" if x__is_a_file?(e_file_name)
-    abort "can't write file #{e_tempfile}" unless x__file_write(e_file_content, e_tempfile)
-    abort "can't set file #{e_tempfile} mode to #{e_file_mode}" unless x__file_chmod(e_tempfile, e_file_mode)
-    abort "can't overwrite #{e_tempfile} to #{e_file_name}" unless x__file_move(e_tempfile, e_file_name)
+    unless x__file_write(e_file_content, e_tempfile)
+      abort "can't write file #{e_tempfile}"
+    end
+    unless x__file_chmod(e_tempfile, e_file_mode)
+      abort "can't set file #{e_tempfile} mode to #{e_file_mode}"
+    end
+    unless x__file_move(e_tempfile, e_file_name)
+      abort "can't overwrite #{e_tempfile} to #{e_file_name}"
+    end
   end
   alias :ec1__file_save :x__file_save
 
   def x__file_overwrite(e_file_content, e_file_name)
     e_tempfile = x__tempfilename_generate(e_file_name)
-    abort "can't write file #{e_tempfile}" unless x__file_write(e_file_content, e_tempfile)
-    abort "can't overwrite #{e_tempfile} to #{e_file_name}" unless x__file_move(e_tempfile, e_file_name)
+    unless x__file_write(e_file_content, e_tempfile)
+      abort "can't write file #{e_tempfile}"
+    end
+    unless x__file_move(e_tempfile, e_file_name)
+      abort "can't overwrite #{e_tempfile} to #{e_file_name}"
+    end
   end
 
   def x__file_write(content, filename)
@@ -194,7 +208,9 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__dir_list_non_recursive(s_directory)
-    abort "ERROR: #{s_directory} is not a directory" unless x__is_a_dir?(s_directory)
+    unless x__is_a_dir?(s_directory)
+      abort "ERROR: #{s_directory} is not a directory"
+    end
     Dir.entries(s_directory) - %w{ . ..}
   end
 
@@ -203,9 +219,13 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__dir_ls(directory_raw, filter_raw = '*')
-    abort "#{directory_raw} is not a directory" unless x__is_a_dir?(directory_raw)
+    unless x__is_a_dir?(directory_raw)
+      abort "#{directory_raw} is not a directory"
+    end
     # making sure directory path end with /
-    directory = directory_raw << ('/') unless directory_raw.match(/\/\Z/)
+    unless directory_raw.match(/\/\Z/)
+      directory = directory_raw << ('/')
+    end
     Dir["#{directory}#{filter_raw}"]
   end
   alias :ec1__dir_ls :x__dir_ls
@@ -222,10 +242,16 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__dir_copy(sourcedirectory, destination_uri)
-    abort "Can't access directory: #{sourcedirectory}" unless x__is_a_dir?(sourcedirectory)
+    unless x__is_a_dir?(sourcedirectory)
+      abort "Can't access directory: #{sourcedirectory}"
+    end
     destinationdirectory = File.dirname(destination_uri)
-    abort "destination_uri already exists: #{destinationdirectory}" if x__is_a_dir?(destinationdirectory)
-    abort "directory #{destinationdirectory} isn't writable" unless x__dir_writable?(destinationdirectory)
+    if x__is_a_dir?(destinationdirectory)
+      abort "destination_uri already exists: #{destinationdirectory}"
+    end
+    unless x__dir_writable?(destinationdirectory)
+      abort "directory #{destinationdirectory} isn't writable"
+    end
     FileUtils.cp_r sourcedirectory, destinationdirectory
   end
   alias :ec1__dir_copy :x__dir_copy
@@ -280,7 +306,10 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__random_string(i_number_of_characters=13, b_lowercase=false)
-    abort "x__random_string ERROR: i_number_of_characters must be an integer" unless x__is_an_integer?(i_number_of_characters)
+    unless x__is_an_integer?(i_number_of_characters)
+      abort "E: i_number_of_characters must be an integer "+
+        "(#{i_number_of_characters.class})"
+    end
     letters_lower = ('a'..'z').to_a
     letters_upper = ('A'..'Z').to_a
     numbers = (0..9).to_a.collect {|i| i.to_s}
@@ -295,7 +324,8 @@ module X module Lib module Toolkit module Standard
     end
     e_random_name
   end
-  # TODO: replacing on ec1 codebase all instances of ec1__random_name and x__random_name by x__random_string
+  # TODO: replacing on ec1 codebase all instances of ec1__random_name and
+  # x__random_name by x__random_string
   alias :ec1__random_name :x__random_string
   alias :x__random_name :x__random_string
 
@@ -326,11 +356,15 @@ module X module Lib module Toolkit module Standard
   end
 
   def ec1__directory_writable(directory)
-    raise "directory #{directory} isn't writable" unless File.writable?(directory)
+    unless File.writable?(directory)
+      raise "directory #{directory} isn't writable"
+    end
   end
 
   def ec1__new_file_writable(filename)
-    raise "file #{filename} doesn't exist or is inaccessible" unless File.exist?(filename)
+    unless File.exist?(filename)
+      raise "file #{filename} doesn't exist or is inaccessible"
+    end
   end
 
 end end end end
