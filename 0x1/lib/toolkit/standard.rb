@@ -291,6 +291,10 @@ module X module Lib module Toolkit module Standard
     end
   end
 
+  def x__json_read(s_file, b_symbolized_names=false)
+    JSON.parse(File.read(s_file), :symbolize_names => b_symbolized_names)
+  end
+
   def x__
     puts "0xyl1s α --"
   end
