@@ -6,11 +6,12 @@ require '0x1/lib/toolkit/standard.rb'
 include X::Lib::Toolkit::Standard
 =end
 
+# TODO: all lines 79 characters max
 # TODO: compartimentilize themes (file_operations, network_tools, ...)
 module X module Lib module Toolkit module Standard
   require 'fileutils'
-  require 'json'
 
+  ################## strings
   def x__user_homedir()
     File.expand_path("~")
   end
@@ -18,26 +19,6 @@ module X module Lib module Toolkit module Standard
   def x__content_replace(s_content, s_search_regex, s_replace_value)
     s_content.sub(/#{s_search_regex}/, s_replace_value)
   end
-
-  def x__random_string(i_number_of_characters=13, b_lowercase=false)
-    abort "x__random_string ERROR: i_number_of_characters must be an integer" unless x__is_an_integer?(i_number_of_characters)
-    letters_lower = ('a'..'z').to_a
-    letters_upper = ('A'..'Z').to_a
-    numbers = (0..9).to_a.collect {|i| i.to_s}
-    if b_lowercase
-      characters_pool = numbers + letters_lower
-    else
-      characters_pool = numbers + letters_lower + letters_upper
-    end
-    e_random_name = ''
-    i_number_of_characters.times do
-      e_random_name << characters_pool[rand(characters_pool.size)]
-    end
-    e_random_name
-  end
-  # TODO: replacing on ec1 codebase all instances of ec1__random_name and x__random_name by x__random_string
-  alias :ec1__random_name :x__random_string
-  alias :x__random_name :x__random_string
 
   def x__is_a_string?(s_string)
     s_string.is_a?(String) ? true : false
@@ -48,24 +29,61 @@ module X module Lib module Toolkit module Standard
     s_string.empty? ? true : false
   end
 
-  def x__is_an_integer?(i_integer)
-    i_integer.is_a?(Integer) ? true : false
-  end
-
   def x__string_contain_only_numbers?(s_string)
     abort "checked string-number must be a string..." unless x__is_a_string?(s_string)
     s_string =~ /^[\d]+$/ ? true : false
   end
 
-  def x__datetime
-    Time.new.strftime("%F_%H%M")
+  # possible l_base values: :dec, :hex, :bin
+  def x__integer_2_string(i_integer, l_base, verbose=false)
+    unless x__is_an_integer?(i_integer)
+      if verbose
+        abort "E: you must supply an integer (#{i_integer})"
+      else
+        abort
+      end
+    end
+    case l_base
+    when :bin
+      i_integer.to_s(2)
+    when :hex
+      i_integer.to_s(16)
+    when :dec
+      i_integer.to_s(10)
+    end
   end
-  alias :ec1__time :x__datetime
 
-  def x__datetime_sec
-    Time.new.strftime("%F_%H%M.%S")
+  # l_position can be :left :center :right
+  def x__format_pad(s_string, l_position, i_length, s_pad, verbose=false)
+    unless x__is_a_string?(s_string)
+      if verbose
+        abort "E: you must supply an integer (#{i_integer})"
+      else
+        abort
+      end
+    end
+    case l_position
+    when :left
+      s_string.ljust(i_length, s_pad)
+    when :center
+      s_string.center(i_length, s_pad)
+    when :right
+      s_string.rjust(i_length, s_pad)
+    else
+      if verbose
+        abort "E: l_position (#{l_position}) must be :left :center or :right"
+      else
+        abort
+      end
+    end
   end
 
+  ################## numbers
+  def x__is_an_integer?(i_integer)
+    i_integer.is_a?(Integer) ? true : false
+  end
+
+  ################## collections
   def x__is_an_array?(a_array)
     a_array.is_a?(Array) ? true : false
   end
@@ -73,6 +91,13 @@ module X module Lib module Toolkit module Standard
   def x__array_value_exist?(array, value)
     abort unless x__is_an_array?(array)
     array.include?(value) ? true : false
+  end
+
+  ################## IO
+  require 'json'
+
+  def x__json_read(s_file, b_symbolized_names=false)
+    JSON.parse(File.read(s_file), :symbolize_names => b_symbolized_names)
   end
 
   def ec1__file_read(file)
@@ -99,18 +124,6 @@ module X module Lib module Toolkit module Standard
   def x__file_readlines_minus_comments(file, comment_character = '#')
     x__file_readlines(file)
   end
-
-  def x__confirm(message='y(es) or no? ')
-    print message
-    e_confirm = gets.chomp
-    case e_confirm
-    when /\Ay(es)?\z/i
-      true
-    else
-      false
-    end
-  end
-  alias :ec1__confirm :x__confirm
 
   def x__file_save_unsecured(e_file_content, e_file_name, e_file_mode='600')
     File.open(e_file_name, 'w') {|f| f.write(e_file_content) }
@@ -245,61 +258,59 @@ module X module Lib module Toolkit module Standard
     File.symlink(s_source_filename, s_target_symlink)
   end
 
+  ################## datetime
+  def x__datetime
+    Time.new.strftime("%F_%H%M")
+  end
+  alias :ec1__time :x__datetime
+
+  def x__datetime_sec
+    Time.new.strftime("%F_%H%M.%S")
+  end
+
+  ################## 
+
   def x__digest_create(content, algorithm = 'sha256')
     OpenSSL::Digest.hexdigest(algorithm, content)
   end
 
-  # possible l_base values: :dec, :hex, :bin
-  def x__integer_2_string(i_integer, l_base, verbose=false)
-    unless x__is_an_integer?(i_integer)
-      if verbose
-        abort "E: you must supply an integer (#{i_integer})"
-      else
-        abort
-      end
-    end
-    case l_base
-    when :bin
-      i_integer.to_s(2)
-    when :hex
-      i_integer.to_s(16)
-    when :dec
-      i_integer.to_s(10)
-    end
-  end
-
-  # l_position can be :left :center :right
-  def x__format_pad(s_string, l_position, i_length, s_pad, verbose=false)
-    unless x__is_a_string?(s_string)
-      if verbose
-        abort "E: you must supply an integer (#{i_integer})"
-      else
-        abort
-      end
-    end
-    case l_position
-    when :left
-      s_string.ljust(i_length, s_pad)
-    when :center
-      s_string.center(i_length, s_pad)
-    when :right
-      s_string.rjust(i_length, s_pad)
-    else
-      if verbose
-        abort "E: l_position (#{l_position}) must be :left :center or :right"
-      else
-        abort
-      end
-    end
-  end
-
-  def x__json_read(s_file, b_symbolized_names=false)
-    JSON.parse(File.read(s_file), :symbolize_names => b_symbolized_names)
-  end
-
+  ################## 0x1utils
   def x__
     puts "0xyl1s α --"
   end
+
+  def x__random_string(i_number_of_characters=13, b_lowercase=false)
+    abort "x__random_string ERROR: i_number_of_characters must be an integer" unless x__is_an_integer?(i_number_of_characters)
+    letters_lower = ('a'..'z').to_a
+    letters_upper = ('A'..'Z').to_a
+    numbers = (0..9).to_a.collect {|i| i.to_s}
+    if b_lowercase
+      characters_pool = numbers + letters_lower
+    else
+      characters_pool = numbers + letters_lower + letters_upper
+    end
+    e_random_name = ''
+    i_number_of_characters.times do
+      e_random_name << characters_pool[rand(characters_pool.size)]
+    end
+    e_random_name
+  end
+  # TODO: replacing on ec1 codebase all instances of ec1__random_name and x__random_name by x__random_string
+  alias :ec1__random_name :x__random_string
+  alias :x__random_name :x__random_string
+
+  # TODO: refactor with ternary operator
+  def x__confirm(message='y(es) or no? ')
+    print message
+    e_confirm = gets.chomp
+    case e_confirm
+    when /\Ay(es)?\z/i
+      true
+    else
+      false
+    end
+  end
+  alias :ec1__confirm :x__confirm
 
 
   #_______________________________________________________________________
