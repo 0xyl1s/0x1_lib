@@ -6,69 +6,69 @@ include X::Lib::Toolkit::Online
 =end
 
 module X module Lib module Toolkit module Online
-require 'open-uri'
-require 'net/http'
+  require 'open-uri'
+  require 'net/http'
 
-DEBUG = false
+  DEBUG = false
 
-# TODO: implementing a ruby solution instead of external command
-def x__service_online?(host, port, delay='8')
-  check_command = "netcat -w #{delay} -z #{host} #{port}"
-  system check_command
-  $? == 0 ? true : false
-end
+  # TODO: implementing a ruby solution instead of external command
+  def x__service_online?(host, port, delay='8')
+    check_command = "netcat -w #{delay} -z #{host} #{port}"
+    system check_command
+    $? == 0 ? true : false
+  end
 
-def x__parse_uri(uri)
-  URI.parse(uri)
-end
+  def x__parse_uri(uri)
+    URI.parse(uri)
+  end
 
-def x__filename_from_parsed_uri(parsed_uri)
-  parsed_uri.path.split('/').last
-end
+  def x__filename_from_parsed_uri(parsed_uri)
+    parsed_uri.path.split('/').last
+  end
 
-def x__read_uri_content(uri)
-  open(uri).read
-end
+  def x__read_uri_content(uri)
+    open(uri).read
+  end
 
-def x__http_response_code(parsed_uri)
-  Net::HTTP.get_response(parsed_uri).code
-end
+  def x__http_response_code(parsed_uri)
+    Net::HTTP.get_response(parsed_uri).code
+  end
 
-def x__http_download(parsed_uri)
-  parsed_uri.read
-end
+  def x__http_download(parsed_uri)
+    parsed_uri.read
+  end
 
-#def x__http_download(parsed_uri_raw)
+  #def x__http_download(parsed_uri_raw)
   #parsed_uri = parsed_uri_raw.read
   #puts "x__http_download parsed_uri = #{parsed_uri}" if DEBUG
   #abort "Can't access #{parsed_uri}" unless x__http_response_code(parsed_uri) == '200'
   #Net::HTTP.start(parsed_uri.host) { |http|
-    #http.get(parsed_uri.path).body
+  #http.get(parsed_uri.path).body
   #}
-#end
+  #end
 
-def x__http_download_and_save(uri, save_basepath=nil)
-  puts "x__http_download_and_save uri = #{uri}" if DEBUG
-  puts "x__http_download_and_save save_basepath = #{save_basepath}" if DEBUG
-  parsed_uri = x__parse_uri(uri)
-  puts "x__http_download_and_save parsed_uri = #{parsed_uri}" if DEBUG
-  downloaded_content = x__http_download(parsed_uri)
-  filename_from_parsed_uri = x__filename_from_parsed_uri(parsed_uri)
-  puts "x__http_download_and_save filename_from_parsed_uri = #{filename_from_parsed_uri}" if DEBUG
-  if save_basepath.nil?
-    save_basepath = x__dir_current 
-  else
-    abort "ERROR: can't access save_basepath #{save_basepath}" unless x__is_a_dir?(save_basepath)
+  def x__http_download_and_save(uri, save_basepath=nil)
+    puts "x__http_download_and_save uri = #{uri}" if DEBUG
+    puts "x__http_download_and_save save_basepath = #{save_basepath}" if DEBUG
+    parsed_uri = x__parse_uri(uri)
+    puts "x__http_download_and_save parsed_uri = #{parsed_uri}" if DEBUG
+    downloaded_content = x__http_download(parsed_uri)
+    filename_from_parsed_uri = x__filename_from_parsed_uri(parsed_uri)
+    puts "x__http_download_and_save filename_from_parsed_uri = #{filename_from_parsed_uri}" if DEBUG
+    if save_basepath.nil?
+      save_basepath = x__dir_current 
+    else
+      abort "ERROR: can't access save_basepath #{save_basepath}" unless x__is_a_dir?(save_basepath)
+    end
+    save_path = "#{save_basepath}/#{filename_from_parsed_uri}"
+    puts "x__http_download_and_save save_path = #{save_path}" if DEBUG
+    x__file_save(downloaded_content, save_path)
   end
-  save_path = "#{save_basepath}/#{filename_from_parsed_uri}"
-  puts "x__http_download_and_save save_path = #{save_path}" if DEBUG
-  x__file_save(downloaded_content, save_path)
-end
 
-# WARNING : dependancy to system util 'mail'
-def x__email_send(to, from, subject, message)
-  system "echo \"#{message}\" | mail \"#{to}\" -s \"#{subject}\" -a FROM:\"#{from}\""
-end
+  # WARNING : dependancy to system util 'mail'
+  def x__email_send(to, from, subject, message)
+    system "echo \"#{message}\" | mail \"#{to}\" -s \"#{subject}\" -a FROM:\"#{from}\""
+  end
 
 
 end end end end

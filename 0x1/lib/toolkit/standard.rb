@@ -342,6 +342,41 @@ module X module Lib module Toolkit module Standard
   end
   alias :ec1__confirm :x__confirm
 
+  def x__select_item(a_list, s_message='choice ? ')
+    unless x__is_an_array?(a_list)
+      abort "E: a_list must be an array (#{a_list.class})"
+    end
+    numbered_list = {}
+    a_list.each_with_index do |item, index|
+      numbered_list[index] = item
+    end
+    choice_valid = false
+    until choice_valid
+      numbered_list.each_pair do |key, value|
+        # user friendly index starting with 1 instead of 0
+        puts "#{key + 1} [#{value}]"
+      end
+      print "\n#{s_message}"
+      choice_index_raw = gets.chomp
+      puts "choice_index_raw = #{choice_index_raw}"
+      if x__string_contain_only_numbers?(choice_index_raw)
+        choice_only_number = true
+      else
+        puts "E: choice must be a number\n\n"
+      end
+      next unless choice_only_number
+      choice_index = choice_index_raw.to_i - 1
+      puts "choice_index = #{choice_index}"
+      if (0..(a_list.size - 1)).include?(choice_index)
+        choice_in_range = true
+      else
+        puts "E: Please select a number between 1 and #{a_list.size}\n\n"
+      end
+      next unless choice_in_range
+      choice_valid = true if (choice_only_number and choice_in_range)
+    end
+    numbered_list[choice_index]
+  end
 
   #_______________________________________________________________________
   ################## ☣ DEPRECATED ☣ ######################################
