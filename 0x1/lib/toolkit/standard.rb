@@ -358,7 +358,6 @@ module X module Lib module Toolkit module Standard
       end
       print "\n#{s_message}"
       choice_index_raw = gets.chomp
-      puts "choice_index_raw = #{choice_index_raw}"
       if x__string_contain_only_numbers?(choice_index_raw)
         choice_only_number = true
       else
@@ -366,7 +365,6 @@ module X module Lib module Toolkit module Standard
       end
       next unless choice_only_number
       choice_index = choice_index_raw.to_i - 1
-      puts "choice_index = #{choice_index}"
       if (0..(a_list.size - 1)).include?(choice_index)
         choice_in_range = true
       else
