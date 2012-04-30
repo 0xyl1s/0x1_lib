@@ -207,6 +207,25 @@ module X module Lib module Toolkit module Standard
     File.directory?(directory) ? true : false
   end
 
+  def x__abort(verbose, message='0x1 abort...')
+    if verbose
+      puts message
+    end
+    abort
+  end
+
+  def x__is_a_dir_abort_if(directory, verbose=false)
+    if x__is_a_dir?(directory)
+      x__abort(true, "E: directory exists already:\n#{directory}")
+    end
+  end
+
+  def x__is_a_dir_abort_unless(directory, verbose=false)
+    unless x__is_a_dir?(directory)
+      x__abort(true, "E: can't access directory:\n#{directory}")
+    end
+  end
+
   def x__dir_list_non_recursive(s_directory)
     unless x__is_a_dir?(s_directory)
       abort "ERROR: #{s_directory} is not a directory"
@@ -352,10 +371,12 @@ module X module Lib module Toolkit module Standard
     end
     choice_valid = false
     until choice_valid
+      puts "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
       numbered_list.each_pair do |key, value|
         # user friendly index starting with 1 instead of 0
         puts "#{key + 1} [#{value}]"
       end
+      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       print "\n#{s_message}"
       choice_index_raw = gets.chomp
       if x__string_contain_only_numbers?(choice_index_raw)
