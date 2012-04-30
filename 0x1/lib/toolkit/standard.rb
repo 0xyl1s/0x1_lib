@@ -216,13 +216,13 @@ module X module Lib module Toolkit module Standard
 
   def x__abort_if_is_a_dir(directory, verbose=false)
     if x__is_a_dir?(directory)
-      x__abort(true, "E: directory exists already:\n#{directory}")
+      x__abort(verbose, "E: directory exists already:\n#{directory}")
     end
   end
 
   def x__abort_unless_is_a_dir(directory, verbose=false)
     unless x__is_a_dir?(directory)
-      x__abort(true, "E: can't access directory:\n#{directory}")
+      x__abort(verbose, "E: can't access directory:\n#{directory}")
     end
   end
 
