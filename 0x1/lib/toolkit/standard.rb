@@ -445,7 +445,7 @@ module X module Lib module Toolkit module Standard
     numbered_list[choice_index]
   end
 
-  def x__extract_tarbz2(s_archive, s_extract_path, verbose=false)
+  def x__abort_unless_extract_tarbz2(s_archive, s_extract_path, verbose=false)
     unless system "tar jxvf #{s_archive} -C #{s_extract_path}"
       abort "E: can't extract #{s_archive} on #{s_extract_path}"
     end
