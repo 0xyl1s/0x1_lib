@@ -349,7 +349,7 @@ module X module Lib module Toolkit module Standard
                                      verbose=false)
     unless s_digest_checked == s_digest_source
       x__abort(verbose, "E: wrong digest (checked digest:\n"+
-        "#{s_digest_checked} should be:\n#{s_digest_source})"
+        "#{s_digest_checked} should be:\n#{s_digest_source})")
     end
   end
 
