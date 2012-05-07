@@ -209,8 +209,15 @@ module X module Lib module Toolkit module Standard
     File.writable?(file) ? true : false
   end
 
-  def x__is_a_dir?(directory)
-    File.directory?(directory) ? true : false
+  def x__is_a_dir?(s_dir)
+    File.directory?(s_dir) ? true : false
+  end
+
+  def x__abort_unless_chdir(s_dir, verbose=false)
+    x__abort_unless_is_a_dir(s_dir, verbose)
+    unless Dir.chdir(s_dir)
+      x__abort(verbose, "E: can't chdir #{s_dir} ")
+    end
   end
 
   def x__abort(verbose, message='0x1 abort...')
@@ -220,15 +227,15 @@ module X module Lib module Toolkit module Standard
     abort
   end
 
-  def x__abort_if_is_a_dir(directory, verbose=false)
-    if x__is_a_dir?(directory)
-      x__abort(verbose, "E: directory exists already:\n#{directory}")
+  def x__abort_if_is_a_dir(s_dir, verbose=false)
+    if x__is_a_dir?(s_dir)
+      x__abort(verbose, "E: directory exists already:\n#{s_dir}")
     end
   end
 
-  def x__abort_unless_is_a_dir(directory, verbose=false)
-    unless x__is_a_dir?(directory)
-      x__abort(verbose, "E: can't access directory:\n#{directory}")
+  def x__abort_unless_is_a_dir(s_dir, verbose=false)
+    unless x__is_a_dir?(s_dir)
+      x__abort(verbose, "E: can't access directory:\n#{s_dir}")
     end
   end
 
@@ -319,6 +326,13 @@ module X module Lib module Toolkit module Standard
     abort unless x__is_a_file?(s_source_filename)
     abort if x__is_a_symlink?(s_target_symlink)
     File.symlink(s_source_filename, s_target_symlink)
+  end
+
+  def x__abort_unless_symlink_create(s_target_path, s_symlink, verbose=false)
+    unless x__symlink_create(s_target_path, s_symlink)
+      x__abort(verbose, "E: can't create symlink #{s_symlink} "+
+               "pointing to #{s_target_path}")
+    end
   end
 
   ################## datetime
@@ -430,7 +444,6 @@ module X module Lib module Toolkit module Standard
     end
     numbered_list[choice_index]
   end
-
 
   #_______________________________________________________________________
   ################## ☣ DEPRECATED ☣ ######################################
