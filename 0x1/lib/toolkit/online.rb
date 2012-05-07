@@ -9,8 +9,6 @@ module X module Lib module Toolkit module Online
   require 'open-uri'
   require 'net/http'
 
-  DEBUG = false
-
   # TODO: implementing a ruby solution instead of external command
   def x__service_online?(host, port, delay='8')
     check_command = "netcat -w #{delay} -z #{host} #{port}"
@@ -34,7 +32,8 @@ module X module Lib module Toolkit module Online
     Net::HTTP.get_response(parsed_uri).code
   end
 
-  def x__http_download(parsed_uri)
+  def x__http_download(parsed_uri, verbose=false)
+    puts "I: downloading #{parsed_uri} ..." if verbose
     parsed_uri.read
   end
 

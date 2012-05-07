@@ -174,6 +174,12 @@ module X module Lib module Toolkit module Standard
     File.open(filename, 'w') {|f| f.write(content) }
   end
 
+  def x__abort_unless_file_write(content, s_path, verbose=false)
+    unless x__file_write(content, s_path)
+      x__abort(verbose, "E: can't write file #{s_path}")
+    end
+  end
+
   def x__file_write_binary(content, filename)
     File.open(filename, 'wb') {|f| f.write(content) }
   end
@@ -260,6 +266,12 @@ module X module Lib module Toolkit module Standard
     FileUtils.mv(initial_dir, new_dir)
   end
 
+  def x__abort_unless_dir_move(s_origin_path, s_target_path, verbose=false)
+    unless x__dir_move(s_origin_path, s_target_path)
+      x__abort(verbose, "E: can't move #{s_origin_path} to #{s_target_path}")
+    end
+  end
+
   def x__dir_copy(sourcedirectory, destination_uri)
     unless x__is_a_dir?(sourcedirectory)
       abort "Can't access directory: #{sourcedirectory}"
@@ -293,6 +305,12 @@ module X module Lib module Toolkit module Standard
     FileUtils.mkdir_p(path)
   end
 
+  def x__abort_unless_mkdir_p(s_dir, verbose=false)
+    unless x__mkdir_p(s_dir)
+      x__abort(verbose, "E: can't create directory #{s_dir}")
+    end
+  end
+
   def x__is_a_symlink?(file)
     File.symlink?(file) ? true : false
   end
@@ -313,10 +331,26 @@ module X module Lib module Toolkit module Standard
     Time.new.strftime("%F_%H%M.%S")
   end
 
+  ################## processes
+
+  ## was the last process well executed?
+  #def x__lp_ok?()
+    #$? == 0 ? true : false
+  #end
+  
+
   ################## 
 
   def x__digest_create(content, algorithm = 'sha256')
     OpenSSL::Digest.hexdigest(algorithm, content)
+  end
+
+  def x__abort_unless_digest_checked(s_digest_source, s_digest_checked,
+                                     verbose=false)
+    unless s_digest_checked == s_digest_source
+      x__abort(verbose, "E: wrong digest (checked digest:\n"+
+        "#{s_digest_checked} should be:\n#{s_digest_source})"
+    end
   end
 
   ################## 0x1utils
@@ -396,6 +430,7 @@ module X module Lib module Toolkit module Standard
     end
     numbered_list[choice_index]
   end
+
 
   #_______________________________________________________________________
   ################## ☣ DEPRECATED ☣ ######################################
