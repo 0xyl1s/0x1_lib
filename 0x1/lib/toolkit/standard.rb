@@ -334,6 +334,11 @@ module X module Lib module Toolkit module Standard
     end
   end
 
+  def x__symlink_resolved(s_symlink) 
+    x__abort_unless_is_a_symlink(s_symlink)
+    File.readlink(s_symlink)
+  end
+
   def x__abort_unless_is_a_symlink(s_symlink, verbose=false)
     unless x__is_a_symlink?(s_symlink)
       x__abort(verbose, "E: #{s_symlink} is not a symlink.")
