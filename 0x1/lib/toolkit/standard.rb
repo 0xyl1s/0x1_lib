@@ -91,6 +91,12 @@ module X module Lib module Toolkit module Standard
     a_array.is_a?(Array) ? true : false
   end
 
+  def x__abort_unless_is_an_array(a_array, verbose=false)
+    unless x__is_an_array?(a_array)
+      x__abort(verbose, "E: #{a_array} is not an array")
+    end
+  end
+
   def x__array_value_exist?(array, value)
     abort unless x__is_an_array?(array)
     array.include?(value) ? true : false
@@ -207,6 +213,18 @@ module X module Lib module Toolkit module Standard
     end
   end
 
+  def x__is_a_regular_file?(s_file)
+    File.file?(s_file) ? true : false
+  end
+
+  def x__file_absolute_path(s_file)
+    File.absolute_path(s_file)
+  end
+
+  def x__file_type(s_file, verbose=false)
+    File.ftype(s_file)
+  end
+
   def x__file_readable?(file)
     File.readable?(file) ? true : false
   end
@@ -226,13 +244,6 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__abort(verbose, message='0x1 abort...')
-    if verbose
-      puts message
-    end
-    abort
-  end
-
   def x__abort_if_is_a_dir(s_dir, verbose=false)
     if x__is_a_dir?(s_dir)
       x__abort(verbose, "E: directory exists already:\n#{s_dir}")
@@ -245,10 +256,8 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__dir_list_non_recursive(s_directory)
-    unless x__is_a_dir?(s_directory)
-      abort "ERROR: #{s_directory} is not a directory"
-    end
+  def x__dir_list_non_recursive(s_directory, verbose=false)
+    x__abort_unless_is_a_dir(s_directory, verbose)
     Dir.entries(s_directory) - %w{ . ..}
   end
 
@@ -257,9 +266,7 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__dir_ls(directory_raw, filter_raw = '*')
-    unless x__is_a_dir?(directory_raw)
-      abort "#{directory_raw} is not a directory"
-    end
+    x__abort_unless_is_a_dir(directory_raw, verbose)
     # making sure directory path end with /
     unless directory_raw.match(/\/\Z/)
       directory = directory_raw << ('/')
@@ -267,6 +274,35 @@ module X module Lib module Toolkit module Standard
     Dir["#{directory}#{filter_raw}"]
   end
   alias :ec1__dir_ls :x__dir_ls
+
+  def x__dir_list_recursive_raw(s_directory, verbose=false)
+    x__abort_unless_is_a_dir(s_directory, verbose)
+    Dir.chdir(s_directory)
+    dir_list = []
+    Dir.glob("**/{*,.*}").each do |file|
+      # excluding . and .. subdirs
+      next if file.match %r!\.\.?\z!
+      dir_list << file
+    end
+    dir_list.sort.uniq
+  end
+
+  # possible file_types: :regular_files, :symbolic_links, :directories
+  def x__files_list_filtered(a_filelist, a_file_types, verbose=false)
+    x__abort_unless_is_an_array(a_filelist, verbose)
+    filtered_list_raw = []
+    a_filelist.each do |file|
+      filetype = x__file_type(file, verbose=true)
+      if filetype == "directory" and a_file_types.include?(:directories)
+        filtered_list_raw << file
+      elsif filetype == "file" and a_file_types.include?(:regular_files)
+        filtered_list_raw << file
+      elsif filetype == "link" and a_file_types.include?(:symbolic_links)
+        filtered_list_raw << file
+      end
+    end
+    filtered_list_raw.sort
+  end
 
   def x__dir_current
     puts Dir.pwd
@@ -334,8 +370,8 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__symlink_resolved(s_symlink) 
-    x__abort_unless_is_a_symlink(s_symlink)
+  def x__symlink_target(s_symlink, verbose=false) 
+    x__abort_unless_is_a_symlink(s_symlink, verbose)
     File.readlink(s_symlink)
   end
 
@@ -405,6 +441,13 @@ module X module Lib module Toolkit module Standard
   ################## 0x1utils
   def x__
     puts "0xyl1s α --"
+  end
+
+  def x__abort(verbose, message='0x1 abort...')
+    if verbose
+      puts message
+    end
+    abort
   end
 
   def x__random_string(i_number_of_characters=13, b_lowercase=false)
@@ -488,6 +531,14 @@ module X module Lib module Toolkit module Standard
 
   def x__rel_abs_path(s_base_path_abs, s_rel_path)
     File.join(File.dirname(s_base_path_abs), s_rel_path)
+  end
+
+  def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=false)
+    path = x__rel_abs_path(s_base_path_abs, s_rel_path)
+    unless x__is_a_file?(path)
+      x__abort(verbose, "E: #{path} is not a valid path")
+    end
+    path
   end
 
 
