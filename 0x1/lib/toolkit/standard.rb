@@ -451,6 +451,10 @@ module X module Lib module Toolkit module Standard
     end
   end
 
+  def x__rel_abs_path(s_rel_path)
+    File.join(File.dirname(__FILE__), s_rel_path)
+  end
+
 
   #_______________________________________________________________________
   ################## ☣ DEPRECATED ☣ ######################################
