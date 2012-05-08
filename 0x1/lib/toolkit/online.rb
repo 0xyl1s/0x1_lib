@@ -69,6 +69,21 @@ module X module Lib module Toolkit module Online
     system "echo \"#{message}\" | mail \"#{to}\" -s \"#{subject}\" -a FROM:\"#{from}\""
   end
 
+  def x__abort_unless_download_file_check_digest(s_uri_raw,
+                                                 s_saved_file_basename,
+                                                 s_save_path,
+                                                 s_digest_type,
+                                                 s_digest,
+                                                 verbose=false)
+    uri = x__parse_uri(s_uri_raw)
+    downloaded_content = x__http_download(uri)
+    file_path_abs = "#{s_save_path}/#{s_saved_file_basename}"
+    x__abort_unless_file_write(downloaded_content, file_path_abs, true)
+    downloaded_file = x__file_read(file_path_abs)
+    digest_checked = x__digest_create(downloaded_file, s_digest_type)
+    x__abort_unless_digest_checked(s_digest, digest_checked, true)
+    puts "I: verified dowloaded #{s_saved_file_basename} digest: done !"
+  end
 
 end end end end
 
