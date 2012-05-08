@@ -324,8 +324,8 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__is_a_symlink?(file)
-    File.symlink?(file) ? true : false
+  def x__is_a_symlink?(s_symlink)
+    File.symlink?(s_symlink) ? true : false
   end
 
   def x__abort_if_is_a_symlink(s_symlink, verbose=false)
@@ -347,9 +347,21 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__abort_unless_symlink_create(s_target_path, s_symlink, verbose=false)
-    unless x__symlink_create(s_target_path, s_symlink)
+    unless x__symlink_create(s_target_path, s_symlink, verbose)
       x__abort(verbose, "E: can't create symlink #{s_symlink} "+
                "pointing to #{s_target_path}")
+    end
+  end
+
+  def x__symlink_delete(s_symlink, verbose=false)
+    x__abort_unless_is_a_symlink(s_symlink, verbose)
+    File.delete(s_symlink)
+  end
+
+  def x__abort_unless_symlink_delete(s_symlink, verbose=false)
+    x__symlink_delete(s_symlink, verbose)
+    if x__is_a_symlink?(s_symlink)
+      x__abort(verbose, "E: can't delete symlink #{s_symlink}.")
     end
   end
 
