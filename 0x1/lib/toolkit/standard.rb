@@ -197,8 +197,14 @@ module X module Lib module Toolkit module Standard
     FileUtils.mv(initial_filename, new_filename)
   end
 
-  def x__is_a_file?(file)
-    File.exists?(file) ? true : false
+  def x__is_a_file?(s_file)
+    File.exists?(s_file) ? true : false
+  end
+
+  def x__abort_unless_is_a_file(s_file, verbose=false)
+    unless x__is_a_file?(s_file)
+      x__abort(verbose, "E: #{s_file} is not a file")
+    end
   end
 
   def x__file_readable?(file)
@@ -322,15 +328,21 @@ module X module Lib module Toolkit module Standard
     File.symlink?(file) ? true : false
   end
 
+  def x__abort_if_is_a_symlink(s_symlink, verbose=false)
+    if x__is_a_symlink?(s_symlink)
+      x__abort(verbose, "E: #{s_symlink} is a symlink.")
+    end
+  end
+
   def x__abort_unless_is_a_symlink(s_symlink, verbose=false)
     unless x__is_a_symlink?(s_symlink)
       x__abort(verbose, "E: #{s_symlink} is not a symlink.")
     end
   end
 
-  def x__symlink_create(s_source_filename, s_target_symlink)
-    abort unless x__is_a_file?(s_source_filename)
-    abort if x__is_a_symlink?(s_target_symlink)
+  def x__symlink_create(s_source_filename, s_target_symlink, verbose=false)
+    x__abort_unless_is_a_file(s_source_filename, verbose)
+    x__abort_if_is_a_symlink(s_target_symlink, verbose)
     File.symlink(s_source_filename, s_target_symlink)
   end
 
