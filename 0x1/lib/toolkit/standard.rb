@@ -322,6 +322,12 @@ module X module Lib module Toolkit module Standard
     File.symlink?(file) ? true : false
   end
 
+  def x__abort_unless_is_a_symlink(s_symlink, verbose=false)
+    unless x__is_a_symlink?(s_symlink)
+      x__abort(verbose, "E: #{s_symlink} is not a symlink.")
+    end
+  end
+
   def x__symlink_create(s_source_filename, s_target_symlink)
     abort unless x__is_a_file?(s_source_filename)
     abort if x__is_a_symlink?(s_target_symlink)
@@ -399,7 +405,7 @@ module X module Lib module Toolkit module Standard
   # TODO: refactor with ternary operator
   def x__confirm(message='y(es) or no? ')
     print message
-    e_confirm = gets.chomp
+    e_confirm = STDIN.gets.chomp
     case e_confirm
     when /\Ay(es)?\z/i
       true
@@ -451,8 +457,8 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__rel_abs_path(s_rel_path)
-    File.join(File.dirname(__FILE__), s_rel_path)
+  def x__rel_abs_path(s_base_path_abs, s_rel_path)
+    File.join(File.dirname(s_base_path_abs), s_rel_path)
   end
 
 
