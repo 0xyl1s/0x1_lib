@@ -266,7 +266,7 @@ module X module Lib module Toolkit module Standard
   end
 
   def x__dir_ls(directory_raw, filter_raw = '*')
-    x__abort_unless_is_a_dir(directory_raw, verbose)
+    x__abort_unless_is_a_dir(directory_raw)
     # making sure directory path end with /
     unless directory_raw.match(/\/\Z/)
       directory = directory_raw << ('/')
