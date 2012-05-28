@@ -418,12 +418,7 @@ module X module Lib module Toolkit module Standard
 
   ################## processes
 
-  ## was the last process well executed?
-  #def x__lp_ok?()
-    #$? == 0 ? true : false
-  #end
-    
-  def x__process_last_exit_status_zero
+  def x__process_last_exit_status_zero()
     $?.exitstatus == 0 ? true : false
   end
 
