@@ -422,7 +422,10 @@ module X module Lib module Toolkit module Standard
   #def x__lp_ok?()
     #$? == 0 ? true : false
   #end
-  
+    
+  def x__process_last_exit_status_zero
+    $?.exitstatus == 0 ? true : false
+  end
 
   ################## 
 
