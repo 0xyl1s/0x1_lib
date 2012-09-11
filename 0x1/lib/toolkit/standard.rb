@@ -12,7 +12,7 @@ module X module Lib module Toolkit module Standard
 
   ################## strings
   def x__user_homedir()
-    File.expand_path("~")
+    Dir.home
   end
 
   def x__content_replace(s_content, s_search_regex, s_replace_value)
