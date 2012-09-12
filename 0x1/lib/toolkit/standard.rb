@@ -438,7 +438,7 @@ module X module Lib module Toolkit module Standard
 
   ################## 0x1utils
   def x__
-    puts "0xyl1s α --"
+    "0xyl1s α --"
   end
 
   def x__abort(verbose, message='0x1 abort...')
