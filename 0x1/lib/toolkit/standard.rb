@@ -8,7 +8,6 @@ include X::Lib::Toolkit::Standard
 
 # TODO: compartimentilize themes (file_operations, network_tools, ...)
 module X module Lib module Toolkit module Standard
-  require 'fileutils'
 
   ################## strings
   require_relative './strings.rb'
@@ -18,6 +17,9 @@ module X module Lib module Toolkit module Standard
 
   ################## collections
   require_relative './collection.rb'
+
+  ################## Files/Dirs
+  require_relative './files_dirs.rb'
 
   ################## IO
   require_relative './io.rb'
@@ -29,7 +31,7 @@ module X module Lib module Toolkit module Standard
   require_relative './processes.rb'
 
   ################## 0x1utils
-  require_relative './processes.rb'
+  require_relative './0x1utils.rb'
 
   ################## 0deprecated
   require_relative './0deprecated.rb'

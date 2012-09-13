@@ -104,18 +104,6 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__rel_abs_path(s_base_path_abs, s_rel_path)
-    File.join(File.dirname(s_base_path_abs), s_rel_path)
-  end
-
-  def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=false)
-    path = x__rel_abs_path(s_base_path_abs, s_rel_path)
-    unless x__is_a_file?(path)
-      x__abort(verbose, "E: #{path} is not a valid path")
-    end
-    path
-  end
-
 end end end end
 
 
