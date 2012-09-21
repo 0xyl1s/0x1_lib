@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Xutils
 
   def x__
     "0xyl1s α --"
@@ -115,4 +115,4 @@ end end end end
 # Copyright: 2010-2012 Pierre-Maël Crétinon
 # Sponsor: studio Helianova - http://studio.helianova.com
 # ――――――――――――――――――――――――――――――――――――――#}}}
-# vim: 
+# vim:

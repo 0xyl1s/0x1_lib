@@ -1,24 +1,30 @@
 # encoding: utf-8
-require 'minitest/unit'
-require 'minitest/autorun'
 
-module X module Lib module Toolkit module Numbers
+module X module Lib module Toolkit module Deprecated
 
-  class Test0x1LibNumbers < MiniTest::Unit::TestCase
+  def ec1__filename(fullpath)
+    Pathname.new(fullpath).path
+  end
 
-    def setup
-      require_relative '../../lib/toolkit/numbers.rb'
-      extend X::Lib::Toolkit::Standard
+  def x__check_file_exist(filename)
+    File.exist?(filename)
+  end
+
+  def ec1__directory_writable(directory)
+    unless File.writable?(directory)
+      raise "directory #{directory} isn't writable"
     end
+  end
 
-    def teardown
+  def ec1__new_file_writable(filename)
+    unless File.exist?(filename)
+      raise "file #{filename} doesn't exist or is inaccessible"
     end
+  end
 
-    def test_x__is_an_integer?
-      assert(x__is_an_integer?(2))
-      refute(x__is_an_integer?('a'))
-    end
-
+  def ec1__file_read(file)
+    abort "Can't read #{file}" unless x__file_readable?(file)
+    File.read(file)
   end
 
 end end end end

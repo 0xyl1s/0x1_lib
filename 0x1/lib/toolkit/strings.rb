@@ -1,7 +1,7 @@
 # encoding: utf-8
 # tested with ruby 1.9.3
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Strings
 
   def x__content_replace(s_content, s_search_regex, s_replace_value)
     s_content.sub(/#{s_search_regex}/, s_replace_value)

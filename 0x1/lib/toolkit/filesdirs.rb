@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Filesdirs
 
   require 'fileutils'
 
@@ -14,11 +14,6 @@ module X module Lib module Toolkit module Standard
       x__abort(verbose, "E: #{path} is not a valid path")
     end
     path
-  end
-
-  def ec1__file_read(file)
-    abort "Can't read #{file}" unless x__file_readable?(file)
-    File.read(file)
   end
 
   def x__file_read(file)
@@ -281,7 +276,7 @@ module X module Lib module Toolkit module Standard
     end
   end
 
-  def x__symlink_target(s_symlink, verbose=false) 
+  def x__symlink_target(s_symlink, verbose=false)
     x__abort_unless_is_a_symlink(s_symlink, verbose)
     File.readlink(s_symlink)
   end
@@ -328,4 +323,4 @@ end end end end
 # Copyright: 2010-2012 Pierre-Maël Crétinon
 # Sponsor: studio Helianova - http://studio.helianova.com
 # ――――――――――――――――――――――――――――――――――――――#}}}
-# vim: 
+# vim:

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Datetime
 
   def x__datetime
     Time.new.strftime("%F_%H%M")

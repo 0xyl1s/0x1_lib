@@ -1,20 +1,23 @@
 # encoding: utf-8
+require 'minitest/unit'
+require 'minitest/autorun'
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Numbers
 
-  def x__is_an_array?(a_array)
-    a_array.is_a?(Array) ? true : false
-  end
+  class xxx < MiniTest::Unit::TestCase
 
-  def x__abort_unless_is_an_array(a_array, verbose=false)
-    unless x__is_an_array?(a_array)
-      x__abort(verbose, "E: #{a_array} is not an array")
+    def setup
+      require_relative '../xxxx.rb'
+      extend X::Lib::Toolkit::xxxx
     end
-  end
 
-  def x__array_value_exist?(array, value)
-    abort unless x__is_an_array?(array)
-    array.include?(value) ? true : false
+    def teardown
+    end
+
+    def test_x__xxxxx
+      assert x__is_an_integer?(2)
+    end
+
   end
 
 end end end end
@@ -28,4 +31,4 @@ end end end end
 # Copyright: 2010-2012 Pierre-Maël Crétinon
 # Sponsor: studio Helianova - http://studio.helianova.com
 # ――――――――――――――――――――――――――――――――――――――#}}}
-# vim: 
+# vim:

@@ -11,30 +11,39 @@ module X module Lib module Toolkit module Standard
 
   ################## strings
   require_relative './strings.rb'
+  include X::Lib::Toolkit::Strings
 
   ################## numbers
   require_relative './numbers.rb'
+  include X::Lib::Toolkit::Numbers
 
   ################## collections
-  require_relative './collection.rb'
+  require_relative './collections.rb'
+  include X::Lib::Toolkit::Collections
 
   ################## Files/Dirs
-  require_relative './files_dirs.rb'
+  require_relative './filesdirs.rb'
+  include X::Lib::Toolkit::Filesdirs
 
   ################## IO
   require_relative './io.rb'
+  include X::Lib::Toolkit::Io
 
   ################## datetime
   require_relative './datetime.rb'
+  include X::Lib::Toolkit::Datetime
 
   ################## processes
   require_relative './processes.rb'
+  include X::Lib::Toolkit::Processes
 
-  ################## 0x1utils
-  require_relative './0x1utils.rb'
+  ################## xutils
+  require_relative './xutils.rb'
+  include X::Lib::Toolkit::Xutils
 
-  ################## 0deprecated
-  require_relative './0deprecated.rb'
+  ################## deprecated
+  require_relative './deprecated.rb'
+  include X::Lib::Toolkit::Deprecated
 
 end end end end
 

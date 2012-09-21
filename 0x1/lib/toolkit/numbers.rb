@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Numbers
 
   def x__is_an_integer?(i_integer)
     i_integer.is_a?(Integer) ? true : false

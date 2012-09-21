@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module X module Lib module Toolkit module Standard
+module X module Lib module Toolkit module Processes
 
   def x__process_last_exit_status_zero()
     $?.exitstatus == 0 ? true : false
