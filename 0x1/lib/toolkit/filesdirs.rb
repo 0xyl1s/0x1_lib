@@ -5,7 +5,8 @@ module X module Lib module Toolkit module Filesdirs
   require 'fileutils'
 
   def x__rel_abs_path(s_base_path_abs, s_rel_path)
-    File.join(File.dirname(s_base_path_abs), s_rel_path)
+    raw_path = File.join(File.dirname(s_base_path_abs), s_rel_path)
+    File.absolute_path raw_path
   end
 
   def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=false)

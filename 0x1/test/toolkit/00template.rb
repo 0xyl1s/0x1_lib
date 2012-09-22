@@ -2,7 +2,7 @@
 require 'minitest/unit'
 require 'minitest/autorun'
 
-module X module Lib module Toolkit module Numbers
+module X module Lib module Toolkit module XXXXXX
 
   class xxx < MiniTest::Unit::TestCase
 
@@ -15,7 +15,7 @@ module X module Lib module Toolkit module Numbers
     end
 
     def test_x__xxxxx
-      assert x__is_an_integer?(2)
+      assert x__xxxx(2)
     end
 
   end
