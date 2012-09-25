@@ -3,24 +3,18 @@
 module X module Lib module Toolkit module Filesdirs
   require_relative '../0x1_test.helper.rb'
 
-  class TestXLibToolkitFilesdirs < MiniTest::Unit::TestCase
+  class TestXLibToolkitFilesdirs < TestXLib
 
+    # available variables:
+    #  - @test_dir: this test file's directory
+    #  - @test_datadir: the temporary test datadir (initially copied by setup,
+    #    and erased by teardown.
     def setup
+      super
       require_relative '../../lib/toolkit/standard.rb'
       extend X::Lib::Toolkit::Standard
-      @test_dir = Dir.pwd
-      test_datadir_src = File.join(Dir.pwd, 'test_filesdirs_unit_data/source')
-      @test_datadir = File.join(Dir.pwd,
-          'test_filesdirs_unit_data/_temp_erase')
-      FileUtils.cp_r test_datadir_src, @test_datadir
-      unless File.directory?(@test_datadir)
-        puts "Error: @test_datadir is not a directory (#{@test_datadir})."
-        exit 1
-      end
-    end
-
-    def teardown
-      FileUtils.rm_rf @test_datadir
+      x__testdir_full('test_filesdirs_unit_data')
+      x__datadir_ini()
     end
 
     def test_x__rel_abs_path
@@ -41,7 +35,6 @@ module X module Lib module Toolkit module Filesdirs
         bogus_dir = './bogus'
         x__abort_unless_rel_abs_path(@test_dir, bogus_dir)
       end
-
     end
 
     def test_x__file_read
