@@ -1,18 +1,16 @@
 # encoding: utf-8
 
 module X module Lib module Toolkit module Filesdirs
-  require_relative '../0x1_test.helper.rb'
 
+  require_relative '../0x1_test.helper.rb'
   class TestXLibToolkitFilesdirs < TestXLib
 
-    # available variables:
-    #  - @test_dir: this test file's directory
-    #  - @test_datadir: the temporary test datadir (initially copied by setup,
-    #    and erased by teardown.
     def setup
       super
-      require_relative '../../lib/toolkit/standard.rb'
-      extend X::Lib::Toolkit::Standard
+      # available variables:
+      #  - @test_dir: this test file's directory
+      #  - @test_datadir: the temporary test datadir (initially copied by setup,
+      #    and erased by teardown.
       x__testdir_full('test_filesdirs_unit_data')
       x__datadir_ini()
     end

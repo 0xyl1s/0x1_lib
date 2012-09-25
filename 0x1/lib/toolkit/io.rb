@@ -19,4 +19,4 @@ end end end end
 # Copyright: 2010-2012 Pierre-Maël Crétinon
 # Sponsor: studio Helianova - http://studio.helianova.com
 # ――――――――――――――――――――――――――――――――――――――#}}}
-# vim: 
+# vim:
