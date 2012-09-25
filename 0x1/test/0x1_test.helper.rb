@@ -12,15 +12,21 @@ module X module Lib
 
     def x__testdir_full(s__testdir_relative_path)
       @test_datadir_base_full = File.join(@test_dir, s__testdir_relative_path)
-      unless File.directory?(@test_datadir_base_full)
-        abort "E: directory @test_datadir_base_full is not accessible " +"(#{@test_datadir_base_full})."
-      end
       @test_datadir_source = File.join(@test_datadir_base_full, "source")
+      unless File.directory?(@test_datadir_source)
+        abort "E: directory @test_datadir_source is not accessible "+
+          "(#{@test_datadir_source})."
+      end
       @test_datadir = File.join(@test_datadir_base_full, "_temp_erase")
     end
 
     def x__datadir_ini()
-      FileUtils.cp_r @test_datadir_source, @test_datadir
+      if File.directory?(@test_datadir)
+        abort "E: directory @test_datadir exists already (#{@test_datadir})."+
+          " (and it should be deleted by the teardown method)"
+      else
+        FileUtils.cp_r @test_datadir_source, @test_datadir
+      end
     end
 
     def teardown
