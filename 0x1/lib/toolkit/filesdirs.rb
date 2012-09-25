@@ -25,16 +25,21 @@ module X module Lib module Toolkit module Filesdirs
   end
 
   # gets a file argument [string], and returns [array] of lines [string]
-  def x__file_readlines(file)
-    abort "Can't read #{file}" unless x__file_readable?(file)
+  def x__file_readlines(file, verbose=false)
+    unless x__file_readable?(file)
+      x__abort(verbose, "Can't read #{file}")
+    end
     File.readlines(file)
   end
   alias :ec1__file_readlines :x__file_readlines
 
-  # gets a file argument [string], and returns [array] of lines [string],
-  # excluding comments
-  def x__file_readlines_minus_comments(file, comment_character = '#')
-    x__file_readlines(file)
+  def x__file_readlines_minus_comment_lines(s_file, s_comment_character = '#')
+    content_without_comments = []
+    x__file_readlines(s_file).each do |line|
+      xregex = %r"^\s*#{s_comment_character}"
+      content_without_comments << line unless line =~ xregex
+    end
+    content_without_comments
   end
 
   def x__file_save_unsecured(e_file_content, e_file_name, e_file_mode='600')
