@@ -6,8 +6,14 @@ require '0x1/lib/toolkit/standard.rb'
 include X::Lib::Toolkit::Standard
 =end
 
-# TODO: compartimentilize themes (file_operations, network_tools, ...)
+module X module Lib
+
+  X_PROD_LIB_DIR_RAWBASE = '.0x1/00mu/00sourcing/0x1_prod/00scripts/lib/0x1_prod'
+
+end end
+
 module X module Lib module Toolkit module Standard
+
 
   ################## collections
   require_relative './collections.rb'
@@ -24,6 +30,10 @@ module X module Lib module Toolkit module Standard
   ################## Files/Dirs
   require_relative './filesdirs.rb'
   include X::Lib::Toolkit::Filesdirs
+
+  ################## modules
+  require_relative './modules.rb'
+  include X::Lib::Toolkit::Modules
 
   ################## numbers
   require_relative './numbers.rb'

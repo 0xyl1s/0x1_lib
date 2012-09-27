@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 module X module Lib
-  require 'minitest/autorun'
 
+  require 'minitest/autorun'
   class TestXLib < MiniTest::Unit::TestCase
 
     def setup
