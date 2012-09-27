@@ -10,10 +10,10 @@ module X module Lib module Toolkit module Modules
     x__lib_modules2load.each do |module2load|
       case module2load
       when :standard
-        require File.join Dir.home, "#{@x_lib_path_base}/0x1/lib/toolkit/standard.rb"
+        require File.join Dir.home, "#{@x_lib_path_base}/lib/0x1_lib/toolkit/standard.rb"
         extend X::Lib::Toolkit::Standard
       when :online
-        require File.join Dir.home, "#{@x_lib_path_base}/0x1/lib/toolkit/online.rb"
+        require File.join Dir.home, "#{@x_lib_path_base}/lib/0x1_lib/toolkit/online.rb"
         extend X::Lib::Toolkit::Online
       else
         abort "X: module2load: no such module as #{module2load}"

@@ -55,7 +55,7 @@ module X module Lib module Toolkit module Online
     filename_from_parsed_uri = x__filename_from_parsed_uri(parsed_uri)
     puts "x__http_download_and_save filename_from_parsed_uri = #{filename_from_parsed_uri}" if DEBUG
     if save_basepath.nil?
-      save_basepath = x__dir_current 
+      save_basepath = x__dir_current
     else
       abort "ERROR: can't access save_basepath #{save_basepath}" unless x__is_a_dir?(save_basepath)
     end
@@ -104,15 +104,15 @@ end end end end
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 # </copyright/copyleft>
 # Project infos <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<# }}}
 #vim: foldmethod=marker
