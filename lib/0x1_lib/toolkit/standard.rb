@@ -6,14 +6,8 @@ require '0x1/lib/toolkit/standard.rb'
 include X::Lib::Toolkit::Standard
 =end
 
-module X module Lib
-
-  X_PROD_LIB_DIR_RAWBASE = '.0x1/00mu/00sourcing/0x1_prod/00scripts/lib/0x1_prod'
-
-end end
 
 module X module Lib module Toolkit module Standard
-
 
   ################## collections
   require_relative './collections.rb'
@@ -50,10 +44,6 @@ module X module Lib module Toolkit module Standard
   ################## strings
   require_relative './strings.rb'
   include X::Lib::Toolkit::Strings
-
-  ################## tests
-  require_relative './tests.rb'
-  include X::Lib::Toolkit::Tests
 
   ################## xutils
   require_relative './xutils.rb'
