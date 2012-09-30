@@ -3,20 +3,21 @@
 
 module X module Lib module Toolkit module Modules
 
-  def x__lib_load_modules(x__lib_modules2load)
-    unless x__lib_modules2load.is_a?(Array)
-      abort "X: x__lib_modules2load must be an array (#{x__lib_modules2load.class})"
-    end
-    x__lib_modules2load.each do |module2load|
+  def x__lib_load_modules(a_x_lib_modules2load, s_xlib_path_base=File.join(Dir.home, '.0x1/00mu/00sourcing/0x1_lib'))
+    x__abort_unless_is_a_dir(s_xlib_path_base)
+    x_lib_path_base = s_xlib_path_base
+    x__abort_unless_is_an_array(a_x_lib_modules2load)
+    x_lib_modules2load = a_x_lib_modules2load
+    x_lib_modules2load.each do |module2load|
       case module2load
       when :standard
-        require "#{@x_lib_path_base}/lib/0x1_lib/toolkit/standard.rb"
+        require "#{x_lib_path_base}/lib/0x1_lib/toolkit/standard.rb"
         extend X::Lib::Toolkit::Standard
       when :online
-        require "#{@x_lib_path_base}/lib/0x1_lib/toolkit/online.rb"
+        require "#{x_lib_path_base}/lib/0x1_lib/toolkit/online.rb"
         extend X::Lib::Toolkit::Online
       else
-        abort "X: module2load: no such module as #{module2load}"
+        abort "E: module2load: no such module as #{module2load}"
       end
     end
   end

@@ -7,6 +7,17 @@ module X module Lib module Toolkit module Filesdirs
   def x__rel_abs_path(s_base_path_abs, s_rel_path)
     File.absolute_path File.join(s_base_path_abs, s_rel_path)
   end
+  alias :x__filej :x__rel_abs_path
+
+  def x__rel_home_path(s_rel_path)
+    x__rel_abs_path(Dir.home, s_rel_path)
+  end
+  alias :x__filejhome :x__rel_home_path
+
+  def x__rel_xsourcing_path(s_rel_path)
+    x__rel_abs_path(File.join(Dir.home, '.0x1/00mu/00sourcing'), s_rel_path)
+  end
+  alias :x__filejsourcing :x__rel_xsourcing_path
 
   def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=false)
     path = x__rel_abs_path(s_base_path_abs, s_rel_path)
@@ -232,18 +243,17 @@ module X module Lib module Toolkit module Filesdirs
     end
   end
 
-  def x__dir_copy(sourcedirectory, destination_uri)
-    unless x__is_a_dir?(sourcedirectory)
-      abort "Can't access directory: #{sourcedirectory}"
+  def x__dir_copy(s_sourcedirectory, s_destinationdirectory)
+    unless x__is_a_dir?(s_sourcedirectory)
+      abort "E: Can't access directory: #{s_sourcedirectory}"
     end
-    destinationdirectory = File.dirname(destination_uri)
-    if x__is_a_dir?(destinationdirectory)
-      abort "destination_uri already exists: #{destinationdirectory}"
+    if x__is_a_dir?(s_destinationdirectory)
+      abort "E: destination_uri already exists: #{s_destinationdirectory}"
     end
-    unless x__dir_writable?(destinationdirectory)
-      abort "directory #{destinationdirectory} isn't writable"
+    FileUtils.cp_r s_sourcedirectory, s_destinationdirectory
+    unless x__is_a_dir?(s_destinationdirectory)
+      abort "E: can't copy directory: #{s_destinationdirectory}"
     end
-    FileUtils.cp_r sourcedirectory, destinationdirectory
   end
   alias :ec1__dir_copy :x__dir_copy
 
