@@ -11,6 +11,13 @@ module X module Lib module Toolkit module Strings
     s_string.is_a?(String) ? true : false
   end
 
+  def x__abort_unless_is_a_string(s_string, verbose=true)
+    unless x__is_a_string?(s_string)
+      x__abort(verbose, "E: s_string (#{s_string}) is not a string "+
+               "(#{s_string.class})")
+    end
+  end
+
   def x__is_a_blank_string?(s_string)
     unless x__is_a_string?(s_string)
       abort "ERROR: provided s_string must be a string (#{s_string.class})"

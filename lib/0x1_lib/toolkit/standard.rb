@@ -22,12 +22,17 @@ module X module Lib module Toolkit module Standard
   include X::Lib::Toolkit::Deprecated
 
   ################## Files/Dirs
-  require_relative './filesdirs.rb'
+  require_relative './filesdirs_utils.rb'
+  require_relative './files.rb'
+  require_relative './dirs.rb'
+  require_relative './symlinks.rb'
   include X::Lib::Toolkit::Filesdirs
 
   ################## modules
   require_relative './modules.rb'
-  include X::Lib::Toolkit::Modules
+  require_relative './classes.rb'
+  require_relative './methods.rb'
+  include X::Lib::Toolkit::ModulesClassesMethods
 
   ################## numbers
   require_relative './numbers.rb'

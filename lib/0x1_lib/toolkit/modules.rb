@@ -1,7 +1,7 @@
 # encoding: utf-8
 # tested with ruby 1.9.3
 
-module X module Lib module Toolkit module Modules
+module X module Lib module Toolkit module ModulesClassesMethods
 
   def x__lib_load_modules(a_x_lib_modules2load, s_xlib_path_base=File.join(Dir.home, '.0x1/00mu/00sourcing/0x1_lib'))
     x__abort_unless_is_a_dir(s_xlib_path_base)
