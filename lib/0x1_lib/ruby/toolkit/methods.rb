@@ -3,11 +3,11 @@
 
 module X module Lib module Toolkit module ModulesClassesMethods
 
-  def x__grandparent_method_name()
-    x__callee_method_name(caller[1])
+  def x__method_caller_name(i_level)
+    x__method_caller_name_extract(caller[i_level])
   end
 
-  def x__callee_method_name(s_caller_rawinfo)
+  def x__method_caller_name_extract(s_caller_rawinfo)
     s_caller_rawinfo[/`([^']*)'/, 1]
   end
 
