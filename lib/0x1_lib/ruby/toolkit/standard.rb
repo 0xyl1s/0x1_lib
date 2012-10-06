@@ -17,10 +17,6 @@ module X module Lib module Toolkit module Standard
   require_relative './datetime.rb'
   include X::Lib::Toolkit::Datetime
 
-  ################## deprecated
-  require_relative './deprecated.rb'
-  include X::Lib::Toolkit::Deprecated
-
   ################## Files/Dirs
   require_relative './filesdirs_utils.rb'
   require_relative './files.rb'
