@@ -8,20 +8,20 @@ module X module Lib module Toolkit module Filesdirs
     File.directory?(s_dir) ? true : false
   end
 
-  def x__abort_unless_chdir(s_dir, verbose=false)
+  def x__abort_unless_chdir(s_dir, verbose=true)
     x__abort_unless_is_a_dir(s_dir, verbose)
     unless Dir.chdir(s_dir)
       x__abort(verbose, "E: can't chdir #{s_dir} ")
     end
   end
 
-  def x__abort_if_is_a_dir(s_dir, verbose=false)
+  def x__abort_if_is_a_dir(s_dir, verbose=true)
     if x__is_a_dir?(s_dir)
       x__abort(verbose, "E: directory exists already:\n#{s_dir}")
     end
   end
 
-  def x__abort_unless_is_a_dir(s_dir, verbose=false)
+  def x__abort_unless_is_a_dir(s_dir, verbose=true)
     unless x__is_a_dir?(s_dir)
       x__abort(verbose, "E: can't access directory:\n#{s_dir}")
     end
@@ -40,7 +40,7 @@ module X module Lib module Toolkit module Filesdirs
     dir_path_minus_leading_slash.split('/')
   end
 
-  def x__dir_list_non_recursive(s_directory, verbose=false)
+  def x__dir_list_non_recursive(s_directory, verbose=true)
     x__abort_unless_is_a_dir(s_directory, verbose)
     Dir.entries(s_directory) - %w{ . ..}
   end
@@ -57,9 +57,8 @@ module X module Lib module Toolkit module Filesdirs
     end
     Dir["#{directory}#{filter_raw}"]
   end
-  alias :ec1__dir_ls :x__dir_ls
 
-  def x__dir_list_recursive_raw(s_directory, verbose=false)
+  def x__dir_list_recursive_raw(s_directory, verbose=true)
     x__abort_unless_is_a_dir(s_directory, verbose)
     Dir.chdir(s_directory)
     dir_list = []
@@ -74,7 +73,6 @@ module X module Lib module Toolkit module Filesdirs
   def x__dir_current
     puts Dir.pwd
   end
-  alias :ec1__dir_current :x__dir_current
 
   def x__dir_move(initial_dir, new_dir)
     abort if x__is_a_dir?(new_dir)
@@ -82,7 +80,7 @@ module X module Lib module Toolkit module Filesdirs
     FileUtils.mv(initial_dir, new_dir)
   end
 
-  def x__abort_unless_dir_move(s_origin_path, s_target_path, verbose=false)
+  def x__abort_unless_dir_move(s_origin_path, s_target_path, verbose=true)
     unless x__dir_move(s_origin_path, s_target_path)
       x__abort(verbose, "E: can't move #{s_origin_path} to #{s_target_path}")
     end
@@ -100,7 +98,6 @@ module X module Lib module Toolkit module Filesdirs
       abort "E: can't copy directory: #{s_destinationdirectory}"
     end
   end
-  alias :ec1__dir_copy :x__dir_copy
 
   def x__dir_readable?(directory)
     abort if x__is_a_dir?(directory)
@@ -120,7 +117,7 @@ module X module Lib module Toolkit module Filesdirs
     FileUtils.mkdir_p(path)
   end
 
-  def x__abort_unless_mkdir_p(s_dir, verbose=false)
+  def x__abort_unless_mkdir_p(s_dir, verbose=true)
     unless x__mkdir_p(s_dir)
       x__abort(verbose, "E: can't create directory #{s_dir}")
     end

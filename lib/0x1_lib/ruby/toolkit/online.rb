@@ -16,6 +16,10 @@ module X module Lib module Toolkit module Online
     $? == 0 ? true : false
   end
 
+  def x__online()
+    "ok> x__online"
+  end
+
   def x__parse_uri(uri)
     URI.parse(uri)
   end
@@ -32,7 +36,7 @@ module X module Lib module Toolkit module Online
     Net::HTTP.get_response(parsed_uri).code
   end
 
-  def x__http_download(parsed_uri, verbose=false)
+  def x__http_download(parsed_uri, verbose=true)
     puts "I: downloading #{parsed_uri} ..." if verbose
     parsed_uri.read
   end

@@ -19,7 +19,6 @@ module X module Lib module Toolkit module Filesdirs
     end
     File.readlines(file)
   end
-  alias :ec1__file_readlines :x__file_readlines
 
   def x__file_readlines_minus_comment_lines(s_file, s_comment_character = '#')
     content_without_comments = []
@@ -34,13 +33,11 @@ module X module Lib module Toolkit module Filesdirs
     File.open(e_file_name, 'w') {|f| f.write(e_file_content) }
     File.chmod(e_file_mode, e_file_name)
   end
-  alias :ec1__file_save_unsecured :x__file_save_unsecured
 
   def x__file_save_nl(e_file_content_raw, e_file_name, e_file_mode='600')
     e_file_content = "#{e_file_content_raw}\n"
     x__file_save(e_file_content, e_file_name, e_file_mode)
   end
-  alias :ec1__file_save_nl :x__file_save_nl
 
   def x__tempfilename_generate(e_file_name)
     "#{e_file_name}.0x1temp.#{x__random_name}"
@@ -59,7 +56,6 @@ module X module Lib module Toolkit module Filesdirs
       abort "can't overwrite #{e_tempfile} to #{e_file_name}"
     end
   end
-  alias :ec1__file_save :x__file_save
 
   def x__file_overwrite(e_file_content, e_file_name)
     e_tempfile = x__tempfilename_generate(e_file_name)

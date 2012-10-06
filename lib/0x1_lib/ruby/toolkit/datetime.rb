@@ -5,7 +5,6 @@ module X module Lib module Toolkit module Datetime
   def x__datetime
     Time.new.strftime("%F_%H%M")
   end
-  alias :ec1__time :x__datetime
 
   def x__datetime_sec
     Time.new.strftime("%F_%H%M.%S")

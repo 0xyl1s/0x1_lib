@@ -44,9 +44,7 @@ module X module Lib module Toolkit module Xutils
     end
     e_random_name
   end
-  # TODO: replacing on ec1 codebase all instances of ec1__random_name and
   # x__random_name by x__random_string
-  alias :ec1__random_name :x__random_string
   alias :x__random_name :x__random_string
 
   # TODO: refactor with ternary operator
@@ -60,7 +58,6 @@ module X module Lib module Toolkit module Xutils
       false
     end
   end
-  alias :ec1__confirm :x__confirm
 
   def x__select_item(a_list, s_message='choice ? ')
     unless x__is_an_array?(a_list)

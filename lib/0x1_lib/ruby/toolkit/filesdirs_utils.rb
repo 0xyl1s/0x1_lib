@@ -19,7 +19,7 @@ module X module Lib module Toolkit module Filesdirs
   end
   alias :x__filejsourcing :x__rel_xsourcing_path
 
-  def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=false)
+  def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=true)
     path = x__rel_abs_path(s_base_path_abs, s_rel_path)
     unless x__is_a_file?(path)
       x__abort(verbose, "E: #{path} is not a valid path")
