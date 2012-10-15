@@ -22,7 +22,7 @@ module X module Lib module Toolkit module Filesdirs
   def x__abort_unless_rel_abs_path(s_base_path_abs, s_rel_path, verbose=true)
     path = x__rel_abs_path(s_base_path_abs, s_rel_path)
     unless x__is_a_file?(path)
-      x__abort(verbose, "E: #{path} is not a valid path")
+      x__abort(verbose, "xE: #{path} is not a valid path")
     end
     path
   end
